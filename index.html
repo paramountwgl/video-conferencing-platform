@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Meeting | Paramount English Medium School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <style>
+        #meeting-container {
+            height: calc(100vh - 200px);
+            min-height: 600px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-md p-4 flex justify-between items-center border-b-4 border-blue-600">
+        <div class="flex items-center gap-4">
+            <img src="your-logo-path.png" alt="Paramount School Logo" class="h-16 w-16 object-contain">
+            <div>
+                <h1 class="text-xl font-bold text-gray-800 uppercase tracking-tight">Paramount English Medium School</h1>
+                <p class="text-sm text-blue-600 font-semibold">Official Staff Meeting Portal</p>
+            </div>
+        </div>
+        <div id="status" class="hidden md:block text-right">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Secure Connection</span>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4">
+        <div id="meeting-container" class="bg-black rounded-xl overflow-hidden shadow-2xl border border-gray-200">
+            </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white p-8 mt-10">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2">Paramount English Medium School</h3>
+                <p class="text-gray-400 text-sm italic">"Nurturing Excellence, Inspiring Futures."</p>
+                <p class="text-gray-400 text-sm mt-2">Laxmipur, Warangal 506005</p>
+            </div>
+            <div class="text-left md:text-right text-sm text-gray-400">
+                <p>Email: paramount0707@gmail.com</p>
+                <p>Official Internal Use Only</p>
+                <p class="mt-4 text-xs">© 2026 Admin Panel Integration Enabled</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const domain = "meet.jit.si";
+        const options = {
+            roomName: "Paramount_Staff_Meeting_Room_Secure",
+            width: "100%",
+            height: "100%",
+            parentNode: document.querySelector('#meeting-container'),
+            userInfo: {
+                displayName: 'School Staff Member'
+            },
+            configOverwrite: {
+                startWithAudioMuted: true,
+                startWithVideoMuted: false,
+                enableLobbyChat: true, // This enables the "Waiting Room"
+                prejoinPageEnabled: true // Staff can check camera/mic before entering
+            },
+            interfaceConfigOverwrite: {
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                    'fms', 'hangup', 'profile', 'chat', 'recording',
+                    'livestreaming', 'sharedvideo', 'settings', 'raisehand',
+                    'videoquality', 'filmstrip', 'invite', 'tileview', 'videobackgroundblur',
+                    'mute-everyone', 'security'
+                ],
+                SHOW_JITSI_WATERMARK: false,
+                BRAND_WATERMARK_LINK: '',
+                SHOW_WATERMARK_FOR_GUESTS: false
+            }
+        };
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        // Security Feature: Only allow host to let people in
+        api.addEventListener('participantJoined', (event) => {
+            console.log("New staff member joined:", event.displayName);
+        });
+    </script>
+</body>
+</html>
