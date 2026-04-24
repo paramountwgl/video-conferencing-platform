@@ -6,6 +6,7 @@
     <title>Staff Meeting | Paramount English Medium School</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://meet.jit.si/external_api.js"></script>
+    <link rel="icon" type="image/png" href="School logo 2.png">
     <style>
         #meeting-container {
             height: calc(100vh - 200px);
@@ -17,7 +18,7 @@
 
     <header class="bg-white shadow-md p-4 flex justify-between items-center border-b-4 border-blue-600">
         <div class="flex items-center gap-4">
-            <img src="your-logo-path.png" alt="Paramount School Logo" class="h-16 w-16 object-contain">
+            <img src="School logo 2.png" alt="Paramount School Logo" class="h-16 w-16 object-contain">
             <div>
                 <h1 class="text-xl font-bold text-gray-800 uppercase tracking-tight">Paramount English Medium School</h1>
                 <p class="text-sm text-blue-600 font-semibold">Official Staff Meeting Portal</p>
@@ -33,31 +34,48 @@
             </div>
     </main>
 
-    <footer class="bg-gray-900 text-white p-8 mt-10">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2">Paramount English Medium School</h3>
-                <p class="text-gray-400 text-sm italic">"Nurturing Excellence, Inspiring Futures."</p>
-                <p class="text-gray-400 text-sm mt-2">Laxmipur, Warangal 506005</p>
-            </div>
-            <div class="text-left md:text-right text-sm text-gray-400">
-                <p>Email: paramount0707@gmail.com</p>
-                <p>Official Internal Use Only</p>
-                <p class="mt-4 text-xs">© 2026 Admin Panel Integration Enabled</p>
-            </div>
+ <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059; margin-top: auto;">
+    <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
+        
+        <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
+            &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
+            <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
+        </p>
+
+        <h3 style="font-family: 'Cinzel', serif; color: #c5a059; margin-bottom: 20px; letter-spacing: 2px; font-size: 1.1rem; font-weight: 800;">
+            CONNECT WITH US
+        </h3>
+
+        <div class="social-icons" style="margin-bottom: 25px;">
+            <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/paramount.07" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/919000641355" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-whatsapp"></i></a>
         </div>
-    </footer>
+
+        <div style="border-top: 1px solid rgba(197, 160, 89, 0.2); pt-4; padding-top: 20px;">
+            <p style="color: #c5a059; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px;">
+                <i class="fas fa-map-marker-alt"></i> Laxmipur, Warangal 506005
+            </p>
+            <p style="color: white; font-size: 0.8rem; opacity: 0.7;">
+                <i class="fas fa-envelope"></i> paramount0707@gmail.com
+            </p>
+        </div>
+    </div>
+</footer>
 
     <script>
         const domain = "meet.jit.si";
         const options = {
-            roomName: "Paramount_Staff_Meeting_Room_Secure",
-            width: "100%",
-            height: "100%",
-            parentNode: document.querySelector('#meeting-container'),
-            userInfo: {
-                displayName: 'School Staff Member'
-            },
+    roomName: "Paramount_Staff_Meeting_Room_Secure",
+    width: "100%",
+    height: "100%",
+    parentNode: document.querySelector('#meeting-container'),
+    configOverwrite: {
+        prejoinPageEnabled: false, // Bypasses the screen in your screenshot entirely
+        disableThirdPartyRequests: true,
+        makeJsonLdData: false
+    },
             configOverwrite: {
                 startWithAudioMuted: true,
                 startWithVideoMuted: false,
@@ -65,13 +83,20 @@
                 prejoinPageEnabled: true // Staff can check camera/mic before entering
             },
             interfaceConfigOverwrite: {
-                TOOLBAR_BUTTONS: [
-                    'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-                    'fms', 'hangup', 'profile', 'chat', 'recording',
-                    'livestreaming', 'sharedvideo', 'settings', 'raisehand',
-                    'videoquality', 'filmstrip', 'invite', 'tileview', 'videobackgroundblur',
-                    'mute-everyone', 'security'
-                ],
+        // Hides the watermarks and logos
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
+        SHOW_BRAND_WATERMARK: false,
+        BRAND_WATERMARK_LINK: "",
+        JITSI_WATERMARK_LINK: "",
+        
+        // Customizes the toolbar to keep it clean
+        DEFAULT_REMOTE_DISPLAY_NAME: 'Staff Member',
+        TOOLBAR_BUTTONS: [
+            'microphone', 'camera', 'desktop', 'fullscreen',
+            'fms', 'hangup', 'profile', 'chat', 'settings', 
+            'raisehand', 'videoquality', 'tileview', 'security'
+        ],
                 SHOW_JITSI_WATERMARK: false,
                 BRAND_WATERMARK_LINK: '',
                 SHOW_WATERMARK_FOR_GUESTS: false
