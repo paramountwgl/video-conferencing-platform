@@ -11,6 +11,27 @@
         #meeting-container {
             height: calc(100vh - 200px);
             min-height: 600px;
+
+            /* Container for the meeting to allow positioning */
+#meeting-wrapper {
+    position: relative; 
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Force your school logo over the Jitsi watermark area */
+.custom-watermark {
+    position: absolute;
+    top: 20px; /* Adjust based on where the logo appears */
+    left: 20px;
+    z-index: 9999; /* This keeps it on top of the video */
+    pointer-events: none; /* Allows you to still click buttons underneath */
+}
+
+.custom-watermark img {
+    height: 50px; /* Size of your school logo in the corner */
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
         }
     </style>
 </head>
@@ -29,10 +50,13 @@
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto p-4">
-        <div id="meeting-container" class="bg-black rounded-xl overflow-hidden shadow-2xl border border-gray-200">
-            </div>
-    </main>
+   <main id="meeting-wrapper">
+    <div class="custom-watermark">
+        <img src="School logo 2.png" alt="Paramount Logo">
+    </div>
+    
+    <div id="meeting-container"></div>
+</main>
 
  <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059; margin-top: auto;">
     <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
@@ -82,14 +106,14 @@
                 enableLobbyChat: true, // This enables the "Waiting Room"
                 prejoinPageEnabled: true // Staff can check camera/mic before entering
             },
-            interfaceConfigOverwrite: {
-        // Hides the watermarks and logos
-        SHOW_JITSI_WATERMARK: false,
-        SHOW_WATERMARK_FOR_GUESTS: false,
-        SHOW_BRAND_WATERMARK: false,
-        BRAND_WATERMARK_LINK: "",
-        JITSI_WATERMARK_LINK: "",
-        
+           interfaceConfigOverwrite: {
+    SHOW_JITSI_WATERMARK: false,
+    SHOW_WATERMARK_FOR_GUESTS: false,
+    SHOW_BRAND_WATERMARK: false,
+    BRAND_WATERMARK_LINK: "",
+    JITSI_WATERMARK_LINK: "",
+    // This removes the "Powered by Jitsi" text if it appears
+    GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
         // Customizes the toolbar to keep it clean
         DEFAULT_REMOTE_DISPLAY_NAME: 'Staff Member',
         TOOLBAR_BUTTONS: [
