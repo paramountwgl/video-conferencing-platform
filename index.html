@@ -56,6 +56,27 @@
             </div>
         </div>
     </header>
+   <main id="meeting-wrapper">
+    <div class="custom-watermark">
+        <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="Paramount Logo">
+    </div>
+    <div id="meeting-container"></div>
+</main>
+
+    <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059;">
+        <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
+            <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
+                &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
+                <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
+            </p>
+            <div class="social-icons" style="margin-bottom: 25px;">
+                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/paramount.07" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/919000641355" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
 
     <div id="meeting-container"></div>
 
@@ -75,14 +96,10 @@ const options = {
         disableThirdPartyRequests: true,
     },
     interfaceConfigOverwrite: {
-        // 1. DISABLE JITSI BRANDING
-        SHOW_JITSI_WATERMARK: false,
-        SHOW_WATERMARK_FOR_GUESTS: false,
-        
-        // 2. ENABLE PARAMOUNT BRANDING
         SHOW_BRAND_WATERMARK: true, 
-        BRAND_WATERMARK_LINK: "https://paramountwgl.github.io/video-conferencing-platform/School logo 2.png",
-        DEFAULT_LOGO_URL: "https://paramountwgl.github.io/video-conferencing-platform/School logo 2.png",
+    // PASTE THE RAW LINK IN BOTH PLACES BELOW
+    BRAND_WATERMARK_LINK: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
+    DEFAULT_LOGO_URL: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
         
         // 3. CLEAN INTERFACE
         DEFAULT_REMOTE_DISPLAY_NAME: 'Paramount Staff',
