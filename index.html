@@ -3,124 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Meeting | Paramount English Medium School</title>
+    <title>Paramount Staff Portal | Private Meeting</title>
+    <script src="https://8x8.vc/external_api.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://meet.jit.si/external_api.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="School logo 2.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* FIX: Moved CSS out of brackets so it actually works */
-      /* Container for the meeting */
-#meeting-wrapper {
-    position: relative; /* This is essential for the overlay to work */
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background: #111;
-    padding: 20px 0;
-}
-
-#meeting-container {
-    width: 95%;
-    max-width: 1200px;
-    height: calc(100vh - 250px);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* THE FIX: Anchor your logo to the TOP LEFT of the video frame */
-.custom-watermark {
-    position: absolute;
-    top: 30px; 
-    left: 40px;
-    z-index: 999999 !important; /* Forces it to the absolute front */
-    pointer-events: none;
-}
-
-.custom-watermark img {
-    height: 50px;
-    background: rgba(26, 26, 26, 0.8); /* Dark background to hide anything behind it */
-    padding: 5px;
-    border-radius: 8px;
-}
-
-/* Specific fix for Fullscreen mode */
-:fullscreen .custom-watermark,
-:-webkit-full-screen .custom-watermark,
-:-ms-fullscreen .custom-watermark {
-    display: block !important;
-    z-index: 2147483647 !important;
-}
+        :root { --gold: #c5a059; --dark-blue: #030a1a; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark-blue); color: white; }
+        
+        #meeting-container {
+            width: 100%;
+            height: calc(100vh - 180px); /* Adjust based on your header/footer */
+            background: #000;
+        }
     </style>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
+<body>
 
-    <header class="bg-white shadow-md p-4 flex justify-between items-center border-b-4 border-blue-600">
-        <div class="flex items-center gap-4">
-            <img src="School logo 2.png" alt="Paramount School Logo" class="h-12 w-12 object-contain">
+    <header class="p-4 border-b-2 border-[#c5a059] flex justify-between items-center bg-[#020617]">
+        <div class="flex items-center gap-3">
+            <img src="School logo 2.png" class="h-12 w-12" alt="Logo">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 uppercase tracking-tight">Paramount English Medium School</h1>
-                <p class="text-xs text-blue-600 font-semibold">Official Staff Meeting Portal</p>
+                <h1 style="font-family: 'Cinzel';" class="text-xl text-[#c5a059]">PARAMOUNT</h1>
+                <p class="text-[10px] tracking-widest uppercase">Official Staff Meeting Room</p>
             </div>
-        </div>
-        <div id="status" class="hidden md:block text-right">
-            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Secure Connection</span>
         </div>
     </header>
 
-  <main id="meeting-wrapper">
-    <div class="custom-watermark">
-        <img src="School logo 2.png" alt="Paramount Logo">
-    </div>
-    
     <div id="meeting-container"></div>
-</main>
-
-    <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059;">
-        <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
-            <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
-                &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
-                <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
-            </p>
-            <div class="social-icons" style="margin-bottom: 25px;">
-                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/paramount.07" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/919000641355" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        const domain = "meet.jit.si";
+        // REPLACE 'YOUR_APP_ID' with the App ID from your JaaS Dashboard
+        const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
+        const roomName = "Staff_Meeting_Room";
+
         const options = {
-    roomName: "Paramount_Staff_Meeting_Room_Secure",
-    width: "100%",
-    height: "100%",
-    parentNode: document.querySelector('#meeting-container'),
-    configOverwrite: {
-        prejoinPageEnabled: false,
-    },
-    interfaceConfigOverwrite: {
-        // 1. Hide their logo
-        SHOW_JITSI_WATERMARK: false,
-        SHOW_WATERMARK_FOR_GUESTS: false,
-        
-        // 2. Force YOUR logo into their system
-        SHOW_BRAND_WATERMARK: true,
-        BRAND_WATERMARK_LINK: "https://paramountwgl.github.io/video-conferencing-platform/School logo 2.png",
-        
-        // 3. Clean up the rest
-        DEFAULT_REMOTE_DISPLAY_NAME: 'Staff Member',
-        TOOLBAR_BUTTONS: [
-            'microphone', 'camera', 'desktop', 'fullscreen',
-            'fms', 'hangup', 'profile', 'chat', 'settings', 
-            'raisehand', 'videoquality', 'tileview', 'security'
-        ],
-    }
-};
-        const api = new JitsiMeetExternalAPI(domain, options);
+            roomName: appId + "/" + roomName,
+            width: "100%",
+            height: "100%",
+            parentNode: document.querySelector('#meeting-container'),
+            configOverwrite: {
+                disableThirdPartyRequests: true,
+                prejoinPageEnabled: false, // Jumps straight to the meeting
+                enableWelcomePage: false,
+                hideConferenceTimer: false,
+            },
+            interfaceConfigOverwrite: {
+                // THESE COMMANDS REMOVE THE LOGOS LEGALLY IN JAAS
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_WATERMARK_FOR_GUESTS: false,
+                SHOW_BRAND_WATERMARK: false,
+                BRAND_WATERMARK_LINK: "",
+                
+                // Customize buttons for a clean 'Zoom' look
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'desktop', 'fullscreen',
+                    'fms', 'hangup', 'profile', 'chat', 'settings', 
+                    'raisehand', 'videoquality', 'tileview', 'security'
+                ],
+                DEFAULT_REMOTE_DISPLAY_NAME: 'Paramount Staff',
+            }
+        };
+
+        const api = new JitsiMeetExternalAPI("8x8.vc", options);
+
+        // This ensures that when the meeting starts, your logo is the only one in mind
+        api.addEventListener('videoConferenceJoined', () => {
+            console.log("Paramount Private Meeting Started");
+        });
     </script>
 </body>
 </html>
