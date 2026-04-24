@@ -30,18 +30,25 @@
 /* THE "PATCH" LOGO: This sits exactly inside the frame at the left corner */
 .custom-watermark {
     position: absolute;
-    top: 30px;    /* Matches the position of the internal watermark */
-    left: 40px;   /* Matches the position of the internal watermark */
-    z-index: 2147483647; /* Highest priority layer */
+    top: 20px; 
+    left: 20px;
+    z-index: 2147483647 !important; /* Forces it to the front */
     pointer-events: none;
+    display: block;
 }
 
 .custom-watermark img {
-    height: 50px; 
-    background: #1a1a1a; /* Solid color to mask whatever is behind it */
-    padding: 6px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    height: 60px; /* Size of your logo */
+    background: transparent !important; /* Removes the box */
+    border: none !important; /* Removes the border */
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); /* Makes it visible on light backgrounds */
+}
+
+/* This is the magic part for Fullscreen */
+#meeting-wrapper:fullscreen .custom-watermark {
+    position: fixed;
+    top: 30px;
+    left: 30px;
 }
     </style>
 </head>
@@ -117,6 +124,25 @@ const api = new JitsiMeetExternalAPI("8x8.vc", options);
         api.addEventListener('videoConferenceJoined', () => {
             console.log("Paramount Private Meeting Started");
         });
+        // Function to handle the logo during Fullscreen toggle
+document.addEventListener('fullscreenchange', () => {
+    const watermark = document.querySelector('.custom-watermark');
+    const wrapper = document.querySelector('#meeting-wrapper');
+
+    if (document.fullscreenElement) {
+        // If entering full screen, make sure the watermark is inside the fullscreen element
+        wrapper.appendChild(watermark);
+    }
+});
+
+// Also trigger this for the Jitsi internal Fullscreen button
+api.on('toolbarButtonClicked', (event) => {
+    if (event.key === 'fullscreen') {
+        const watermark = document.querySelector('.custom-watermark');
+        const wrapper = document.querySelector('#meeting-wrapper');
+        wrapper.appendChild(watermark);
+    }
+});
     </script>
 </body>
 </html>
