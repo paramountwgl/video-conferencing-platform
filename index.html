@@ -7,31 +7,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://meet.jit.si/external_api.js"></script>
     <link rel="icon" type="image/png" href="School logo 2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        /* FIX: Moved CSS out of brackets so it actually works */
+        #meeting-wrapper {
+            position: relative; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: #111;
+            padding: 20px 0;
+        }
+
         #meeting-container {
-            height: calc(100vh - 200px);
-            min-height: 600px;
+            width: 95%;
+            max-width: 1200px;
+            height: calc(100vh - 250px);
+            min-height: 500px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-            /* Container for the meeting to allow positioning */
-#meeting-wrapper {
-    position: relative; 
-    width: 100%;
-    max-width: 1200px;
-}
+        /* Overlay Logo to hide Jitsi Watermark */
+        .custom-watermark {
+            position: absolute;
+            top: 40px; 
+            left: 50px;
+            z-index: 100; 
+            pointer-events: none; 
+        }
 
-/* Force your school logo over the Jitsi watermark area */
-.custom-watermark {
-    position: absolute;
-    top: 20px; /* Adjust based on where the logo appears */
-    left: 20px;
-    z-index: 9999; /* This keeps it on top of the video */
-    pointer-events: none; /* Allows you to still click buttons underneath */
-}
-
-.custom-watermark img {
-    height: 50px; /* Size of your school logo in the corner */
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-}
+        .custom-watermark img {
+            height: 45px; 
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
         }
     </style>
 </head>
@@ -39,10 +50,10 @@
 
     <header class="bg-white shadow-md p-4 flex justify-between items-center border-b-4 border-blue-600">
         <div class="flex items-center gap-4">
-            <img src="School logo 2.png" alt="Paramount School Logo" class="h-16 w-16 object-contain">
+            <img src="School logo 2.png" alt="Paramount School Logo" class="h-12 w-12 object-contain">
             <div>
                 <h1 class="text-xl font-bold text-gray-800 uppercase tracking-tight">Paramount English Medium School</h1>
-                <p class="text-sm text-blue-600 font-semibold">Official Staff Meeting Portal</p>
+                <p class="text-xs text-blue-600 font-semibold">Official Staff Meeting Portal</p>
             </div>
         </div>
         <div id="status" class="hidden md:block text-right">
@@ -50,88 +61,56 @@
         </div>
     </header>
 
-   <main id="meeting-wrapper">
-    <div class="custom-watermark">
-        <img src="School logo 2.png" alt="Paramount Logo">
-    </div>
-    
-    <div id="meeting-container"></div>
-</main>
-
- <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059; margin-top: auto;">
-    <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
-        
-        <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
-            &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
-            <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
-        </p>
-
-        <h3 style="font-family: 'Cinzel', serif; color: #c5a059; margin-bottom: 20px; letter-spacing: 2px; font-size: 1.1rem; font-weight: 800;">
-            CONNECT WITH US
-        </h3>
-
-        <div class="social-icons" style="margin-bottom: 25px;">
-            <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/paramount.07" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-instagram"></i></a>
-            <a href="https://youtube.com/@paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-youtube"></i></a>
-            <a href="https://wa.me/919000641355" target="_blank" style="color: white; font-size: 24px; margin: 0 15px; text-decoration: none; transition: 0.3s;"><i class="fab fa-whatsapp"></i></a>
+    <main id="meeting-wrapper">
+        <div class="custom-watermark">
+            <img src="School logo 2.png" alt="Paramount Logo">
         </div>
+        <div id="meeting-container"></div>
+    </main>
 
-        <div style="border-top: 1px solid rgba(197, 160, 89, 0.2); pt-4; padding-top: 20px;">
-            <p style="color: #c5a059; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px;">
-                <i class="fas fa-map-marker-alt"></i> Laxmipur, Warangal 506005
+    <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059;">
+        <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
+            <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
+                &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
+                <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
             </p>
-            <p style="color: white; font-size: 0.8rem; opacity: 0.7;">
-                <i class="fas fa-envelope"></i> paramount0707@gmail.com
-            </p>
+            <div class="social-icons" style="margin-bottom: 25px;">
+                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/paramount.07" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/919000641355" target="_blank" style="color: white; font-size: 24px; margin: 0 15px;"><i class="fab fa-whatsapp"></i></a>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         const domain = "meet.jit.si";
         const options = {
-    roomName: "Paramount_Staff_Meeting_Room_Secure",
-    width: "100%",
-    height: "100%",
-    parentNode: document.querySelector('#meeting-container'),
-    configOverwrite: {
-        prejoinPageEnabled: false, // Bypasses the screen in your screenshot entirely
-        disableThirdPartyRequests: true,
-        makeJsonLdData: false
-    },
+            roomName: "Paramount_Staff_Meeting_Room_Secure",
+            width: "100%",
+            height: "100%",
+            parentNode: document.querySelector('#meeting-container'),
             configOverwrite: {
                 startWithAudioMuted: true,
                 startWithVideoMuted: false,
-                enableLobbyChat: true, // This enables the "Waiting Room"
-                prejoinPageEnabled: true // Staff can check camera/mic before entering
+                enableLobbyChat: true,
+                prejoinPageEnabled: false, // Bypasses the branded join screen
+                disableThirdPartyRequests: true
             },
-           interfaceConfigOverwrite: {
-    SHOW_JITSI_WATERMARK: false,
-    SHOW_WATERMARK_FOR_GUESTS: false,
-    SHOW_BRAND_WATERMARK: false,
-    BRAND_WATERMARK_LINK: "",
-    JITSI_WATERMARK_LINK: "",
-    // This removes the "Powered by Jitsi" text if it appears
-    GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
-        // Customizes the toolbar to keep it clean
-        DEFAULT_REMOTE_DISPLAY_NAME: 'Staff Member',
-        TOOLBAR_BUTTONS: [
-            'microphone', 'camera', 'desktop', 'fullscreen',
-            'fms', 'hangup', 'profile', 'chat', 'settings', 
-            'raisehand', 'videoquality', 'tileview', 'security'
-        ],
+            interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
-                BRAND_WATERMARK_LINK: '',
-                SHOW_WATERMARK_FOR_GUESTS: false
+                SHOW_WATERMARK_FOR_GUESTS: false,
+                SHOW_BRAND_WATERMARK: false,
+                BRAND_WATERMARK_LINK: "",
+                DEFAULT_REMOTE_DISPLAY_NAME: 'Staff Member',
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'desktop', 'fullscreen',
+                    'fms', 'hangup', 'profile', 'chat', 'settings', 
+                    'raisehand', 'videoquality', 'tileview', 'security'
+                ],
             }
         };
         const api = new JitsiMeetExternalAPI(domain, options);
-
-        // Security Feature: Only allow host to let people in
-        api.addEventListener('participantJoined', (event) => {
-            console.log("New staff member joined:", event.displayName);
-        });
     </script>
 </body>
 </html>
