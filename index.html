@@ -18,6 +18,31 @@
             height: calc(100vh - 180px); /* Adjust based on your header/footer */
             background: #000;
         }
+        /* Container for the meeting */
+#meeting-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #000;
+}
+
+/* THE "PATCH" LOGO: This sits exactly inside the frame at the left corner */
+.custom-watermark {
+    position: absolute;
+    top: 30px;    /* Matches the position of the internal watermark */
+    left: 40px;   /* Matches the position of the internal watermark */
+    z-index: 2147483647; /* Highest priority layer */
+    pointer-events: none;
+}
+
+.custom-watermark img {
+    height: 50px; 
+    background: #1a1a1a; /* Solid color to mask whatever is behind it */
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
     </style>
 </head>
 <body>
@@ -35,39 +60,41 @@
     <div id="meeting-container"></div>
 
     <script>
-        // REPLACE 'YOUR_APP_ID' with the App ID from your JaaS Dashboard
-        const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
-        const roomName = "Staff_Meeting_Room";
+       
+        // REPLACE 'YOUR_APP_ID' with your actual ID from the 8x8 JaaS dashboard
+const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
+const roomName = "Staff_Meeting_Room";
 
-        const options = {
-            roomName: appId + "/" + roomName,
-            width: "100%",
-            height: "100%",
-            parentNode: document.querySelector('#meeting-container'),
-            configOverwrite: {
-                disableThirdPartyRequests: true,
-                prejoinPageEnabled: false, // Jumps straight to the meeting
-                enableWelcomePage: false,
-                hideConferenceTimer: false,
-            },
-            interfaceConfigOverwrite: {
-                // THESE COMMANDS REMOVE THE LOGOS LEGALLY IN JAAS
-                SHOW_JITSI_WATERMARK: false,
-                SHOW_WATERMARK_FOR_GUESTS: false,
-                SHOW_BRAND_WATERMARK: false,
-                BRAND_WATERMARK_LINK: "",
-                
-                // Customize buttons for a clean 'Zoom' look
-                TOOLBAR_BUTTONS: [
-                    'microphone', 'camera', 'desktop', 'fullscreen',
-                    'fms', 'hangup', 'profile', 'chat', 'settings', 
-                    'raisehand', 'videoquality', 'tileview', 'security'
-                ],
-                DEFAULT_REMOTE_DISPLAY_NAME: 'Paramount Staff',
-            }
-        };
+const options = {
+    roomName: appId + "/" + roomName,
+    width: "100%",
+    height: "100%",
+    parentNode: document.querySelector('#meeting-container'),
+    configOverwrite: {
+        prejoinPageEnabled: false,
+        disableThirdPartyRequests: true,
+    },
+    interfaceConfigOverwrite: {
+        // 1. DISABLE JITSI BRANDING
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
+        
+        // 2. ENABLE PARAMOUNT BRANDING
+        SHOW_BRAND_WATERMARK: true, 
+        BRAND_WATERMARK_LINK: "https://paramountwgl.github.io/video-conferencing-platform/School logo 2.png",
+        DEFAULT_LOGO_URL: "https://paramountwgl.github.io/video-conferencing-platform/School logo 2.png",
+        
+        // 3. CLEAN INTERFACE
+        DEFAULT_REMOTE_DISPLAY_NAME: 'Paramount Staff',
+        TOOLBAR_BUTTONS: [
+            'microphone', 'camera', 'desktop', 'fullscreen',
+            'fms', 'hangup', 'profile', 'chat', 'settings', 
+            'raisehand', 'videoquality', 'tileview', 'security'
+        ],
+    }
+};
 
-        const api = new JitsiMeetExternalAPI("8x8.vc", options);
+const api = new JitsiMeetExternalAPI("8x8.vc", options);
 
         // This ensures that when the meeting starts, your logo is the only one in mind
         api.addEventListener('videoConferenceJoined', () => {
