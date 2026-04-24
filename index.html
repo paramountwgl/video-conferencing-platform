@@ -11,39 +11,40 @@
     
     <style>
         /* FIX: Moved CSS out of brackets so it actually works */
-        #meeting-wrapper {
-            position: relative; 
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background: #111;
-            padding: 20px 0;
-        }
+      /* Container for the meeting */
+#meeting-wrapper {
+    position: relative; /* This is essential for the overlay to work */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #111;
+    padding: 20px 0;
+}
 
-        #meeting-container {
-            width: 95%;
-            max-width: 1200px;
-            height: calc(100vh - 250px);
-            min-height: 500px;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+#meeting-container {
+    width: 95%;
+    max-width: 1200px;
+    height: calc(100vh - 250px);
+    border-radius: 12px;
+    overflow: hidden;
+}
 
-        /* Overlay Logo to hide Jitsi Watermark */
-        .custom-watermark {
-            position: absolute;
-            top: 40px; 
-            left: 50px;
-            z-index: 100; 
-            pointer-events: none; 
-        }
+/* THE FIX: Anchor your logo to the TOP LEFT of the video frame */
+.custom-watermark {
+    position: absolute;
+    top: 35px;    /* Distance from top of the meeting area */
+    left: 45px;   /* Distance from left of the meeting area */
+    z-index: 2147483647; /* Highest possible z-index to stay on top of the video */
+    pointer-events: none; /* Allows clicks to pass through to buttons behind it */
+}
 
-        .custom-watermark img {
-            height: 45px; 
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-        }
+.custom-watermark img {
+    height: 55px; /* Size it slightly larger than the Jitsi logo to hide it completely */
+    background-color: #1a1a1a; /* Adds a solid background color to mask what is underneath */
+    padding: 5px;
+    border-radius: 5px;
+    filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8));
+}
     </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
@@ -61,12 +62,13 @@
         </div>
     </header>
 
-    <main id="meeting-wrapper">
-        <div class="custom-watermark">
-            <img src="School logo 2.png" alt="Paramount Logo">
-        </div>
-        <div id="meeting-container"></div>
-    </main>
+  <main id="meeting-wrapper">
+    <div class="custom-watermark">
+        <img src="School logo 2.png" alt="Paramount Logo">
+    </div>
+    
+    <div id="meeting-container"></div>
+</main>
 
     <footer style="background: rgba(2, 6, 23, 0.98); padding: 40px 15px; text-align: center; border-top: 2px solid #c5a059;">
         <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
