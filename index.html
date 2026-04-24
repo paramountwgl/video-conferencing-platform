@@ -155,9 +155,72 @@ const options = {
                 disableDeepLinking: true, 
             }
         };
-        const api = new JitsiMeetExternalAPI(domain, options);
-    }, 500);
-};
+       // Inside your existing script
+const api = new JitsiMeetExternalAPI("8x8.vc", options);
+
+let selectedRating = 0;
+
+// Listen for the Hangup (Call Ended)
+api.addEventListener('videoConferenceLeft', () => {
+    // Hide the meeting container
+    document.getElementById('meeting-container').style.display = 'none';
+    // Show the Feedback Modal
+    document.getElementById('feedbackModal').classList.remove('hidden');
+});
+
+// Star Rating Interaction
+document.querySelectorAll('#starRating i').forEach(star => {
+    star.addEventListener('click', function() {
+        selectedRating = this.getAttribute('data-value');
+        // Highlight stars
+        document.querySelectorAll('#starRating i').forEach(s => {
+            s.classList.toggle('text-[#c5a059]', s.getAttribute('data-value') <= selectedRating);
+            s.classList.toggle('text-gray-300', s.getAttribute('data-value') > selectedRating);
+        });
+    });
+});
+
+// Submit Button Action
+document.getElementById('submitFeedback').addEventListener('click', function() {
+    if(selectedRating === 0) {
+        alert("Please select a star rating first.");
+        return;
+    }
+    
+    // Hide button and stars
+    document.getElementById('starRating').style.opacity = '0.5';
+    this.style.display = 'none';
+    
+    // Show Thank You Message
+    document.getElementById('thankYouMessage').classList.remove('hidden');
+
+    // Optional: Refresh page or redirect after 3 seconds
+    setTimeout(() => {
+        location.reload();
+    }, 3000);
+});
     </script>
+    <div id="feedbackModal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[3000] hidden">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl border-t-4 border-[#c5a059]">
+        <h2 class="font-['Cinzel'] text-[#030a1a] text-xl font-bold mb-2">Paramount Conference</h2>
+        <p class="text-gray-600 text-sm mb-6 font-semibold uppercase tracking-wider">How was your experience?</p>
+        
+        <div class="flex justify-center gap-2 mb-8" id="starRating">
+            <i class="fas fa-star text-3xl cursor-pointer text-gray-300 hover:text-[#c5a059]" data-value="1"></i>
+            <i class="fas fa-star text-3xl cursor-pointer text-gray-300 hover:text-[#c5a059]" data-value="2"></i>
+            <i class="fas fa-star text-3xl cursor-pointer text-gray-300 hover:text-[#c5a059]" data-value="3"></i>
+            <i class="fas fa-star text-3xl cursor-pointer text-gray-300 hover:text-[#c5a059]" data-value="4"></i>
+            <i class="fas fa-star text-3xl cursor-pointer text-gray-300 hover:text-[#c5a059]" data-value="5"></i>
+        </div>
+
+        <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs border border-[#c5a059] hover:bg-[#c5a059] hover:text-black transition-all w-full">
+            Submit Rating
+        </button>
+
+        <div id="thankYouMessage" class="hidden mt-4 text-green-600 font-bold animate-bounce">
+            Thank you for your response!
+        </div>
+    </div>
+</div>
 </body>
 </html>
