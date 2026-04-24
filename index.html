@@ -137,10 +137,14 @@ const options = {
 };
 const api = new JitsiMeetExternalAPI("8x8.vc", options);
 
-        // This ensures that when the meeting starts, your logo is the only one in mind
-        api.addEventListener('videoConferenceJoined', () => {
-            console.log("Paramount Private Meeting Started");
-        });
+// FORCE the logo to stay on top during full-screen
+api.addEventListener('toolbarButtonClicked', (event) => {
+    if (event.key === 'fullscreen') {
+        const logo = document.querySelector('.full-screen-logo');
+        // This 're-pins' the logo to the screen
+        document.body.appendChild(logo);
+    }
+});
         // Function to handle the logo during Fullscreen toggle
 document.addEventListener('fullscreenchange', () => {
     const watermark = document.querySelector('.custom-watermark');
