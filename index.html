@@ -29,18 +29,48 @@
         /* This logo will stay on top of EVERYTHING */
 .full-screen-logo {
     position: fixed;
-    top: 25px;
-    left: 25px;
+    top: 100px; /* Default position below header */
+    left: 40px;
     z-index: 2147483647 !important;
+    display: none; /* Hidden until meeting starts */
+    align-items: center;
+    gap: 12px;
     pointer-events: none;
-    /* FIX: Hide it initially so it doesn't overlap the header */
-    display: none; 
 }
 
 .full-screen-logo img {
     height: 50px;
-    background: transparent;
-    filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.6));
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
+        .watermark-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-name {
+    font-family: 'Cinzel', serif;
+    color: #c5a059; /* Your Gold Color */
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.sub-name {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Ensure visibility during Fullscreen */
+:fullscreen .full-screen-logo {
+    display: flex !important;
+    top: 30px !important;
+    left: 30px !important;
 }
 
 /* THE "PATCH" LOGO: This sits exactly inside the frame at the left corner */
@@ -83,9 +113,13 @@
         </div>
     </header>
    <main id="meeting-wrapper">
-    <div class="custom-watermark">
-        <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="Paramount Logo">
+    <div class="full-screen-logo" id="premium-watermark">
+    <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="Logo">
+    <div class="watermark-text">
+        <div class="main-name">PARAMOUNT</div>
+        <div class="sub-name">ENGLISH MEDIUM SCHOOL</div>
     </div>
+</div>
     <div id="meeting-container"></div>
 </main>
 
@@ -142,21 +176,18 @@ const options = {
 const api = new JitsiMeetExternalAPI("8x8.vc", options);
 
 // FORCE the logo to stay on top during full-screen
-api.addEventListener('toolbarButtonClicked', (event) => {
-    if (event.key === 'fullscreen') {
-        const logo = document.querySelector('.full-screen-logo');
-        // This 're-pins' the logo to the screen
-        document.body.appendChild(logo);
-    }
+api.addEventListener('videoConferenceJoined', () => {
+    const watermark = document.getElementById('premium-watermark');
+    watermark.style.display = 'flex'; // Changed from 'block' to 'flex'
 });
-        // Function to handle the logo during Fullscreen toggle
-document.addEventListener('fullscreenchange', () => {
-    const watermark = document.querySelector('.custom-watermark');
-    const wrapper = document.querySelector('#meeting-wrapper');
 
+// Fix for Fullscreen toggle
+document.addEventListener('fullscreenchange', () => {
+    const watermark = document.getElementById('premium-watermark');
     if (document.fullscreenElement) {
-        // If entering full screen, make sure the watermark is inside the fullscreen element
-        wrapper.appendChild(watermark);
+        watermark.style.top = '30px';
+    } else {
+        watermark.style.top = '100px';
     }
 });
 
