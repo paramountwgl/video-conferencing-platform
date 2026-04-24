@@ -28,15 +28,17 @@
 }
         /* This logo will stay on top of EVERYTHING */
 .full-screen-logo {
-    position: fixed; /* 'Fixed' is better than 'absolute' for full-screen */
+    position: fixed;
     top: 25px;
     left: 25px;
-    z-index: 2147483647 !important; /* Highest possible z-index */
+    z-index: 2147483647 !important;
     pointer-events: none;
+    /* FIX: Hide it initially so it doesn't overlap the header */
+    display: none; 
 }
 
 .full-screen-logo img {
-    height: 55px;
+    height: 50px;
     background: transparent;
     filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.6));
 }
@@ -59,7 +61,11 @@
 }
 
 /* This is the magic part for Fullscreen */
-#meeting-wrapper:fullscreen .custom-watermark {
+#meeting-wrapper:fullscreen .full-screen-logo,
+#meeting-container:fullscreen .full-screen-logo {
+    display: block !important;
+}
+        .custom-watermark {
     position: fixed;
     top: 30px;
     left: 30px;
@@ -118,7 +124,7 @@ const options = {
     configOverwrite: {
         prejoinPageEnabled: false,
         disableThirdPartyRequests: true,
-        // This ensures your branding is loaded first
+        // This is the key for Fullscreen branding
         dynamicBrandingUrl: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/branding.json"
     },
     interfaceConfigOverwrite: {
@@ -126,12 +132,14 @@ const options = {
         SHOW_WATERMARK_FOR_GUESTS: false,
         SHOW_BRAND_WATERMARK: true, 
         
-        // This is the primary internal logo
+        // This puts the logo inside the frame
         BRAND_WATERMARK_LINK: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
         DEFAULT_LOGO_URL: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
         
         TOOLBAR_BUTTONS: [
-            'microphone', 'camera', 'desktop', 'fullscreen', 'chat', 'settings', 'raisehand', 'tileview', 'security'
+            'microphone', 'camera', 'desktop', 'fullscreen',
+            'fms', 'hangup', 'profile', 'chat', 'settings', 
+            'raisehand', 'videoquality', 'tileview', 'security'
         ],
     }
 };
