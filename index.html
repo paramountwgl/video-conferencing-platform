@@ -61,15 +61,12 @@
 }
 
 /* This is the magic part for Fullscreen */
-#meeting-wrapper:fullscreen .full-screen-logo,
-#meeting-container:fullscreen .full-screen-logo {
-    display: block !important;
-}
-        .custom-watermark {
+#meeting-wrapper:fullscreen .custom-watermark {
     position: fixed;
     top: 30px;
     left: 30px;
 }
+        
     </style>
 </head>
 <body>
@@ -86,10 +83,9 @@
         </div>
     </header>
    <main id="meeting-wrapper">
-       <div class="full-screen-logo">
-        <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="School Logo">
+    <div class="custom-watermark">
+        <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="Paramount Logo">
     </div>
-    
     <div id="meeting-container"></div>
 </main>
 
