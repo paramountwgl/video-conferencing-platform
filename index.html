@@ -26,52 +26,7 @@
     justify-content: center;
     background: #000;
 }
-        /* This logo will stay on top of EVERYTHING */
-.full-screen-logo {
-    position: fixed;
-    top: 100px; /* Default position below header */
-    left: 40px;
-    z-index: 2147483647 !important;
-    display: none; /* Hidden until meeting starts */
-    align-items: center;
-    gap: 12px;
-    pointer-events: none;
-}
-
-.full-screen-logo img {
-    height: 50px;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-}
-        .watermark-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.main-name {
-    font-family: 'Cinzel', serif;
-    color: #c5a059; /* Your Gold Color */
-    font-size: 1.2rem;
-    font-weight: 900;
-    line-height: 1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-.sub-name {
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    font-size: 0.6rem;
-    letter-spacing: 1px;
-    font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-/* Ensure visibility during Fullscreen */
-:fullscreen .full-screen-logo {
-    display: flex !important;
-    top: 30px !important;
-    left: 30px !important;
-}
+      
 
 /* THE "PATCH" LOGO: This sits exactly inside the frame at the left corner */
 .custom-watermark {
@@ -113,13 +68,7 @@
         </div>
     </header>
    <main id="meeting-wrapper">
-    <div class="full-screen-logo" id="premium-watermark">
-    <img src="https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png" alt="Logo">
-    <div class="watermark-text">
-        <div class="main-name">PARAMOUNT</div>
-        <div class="sub-name">ENGLISH MEDIUM SCHOOL</div>
-    </div>
-</div>
+   
     <div id="meeting-container"></div>
 </main>
 
@@ -154,18 +103,18 @@ const options = {
     configOverwrite: {
         prejoinPageEnabled: false,
         disableThirdPartyRequests: true,
-        // This is the key for Fullscreen branding
-        dynamicBrandingUrl: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/branding.json"
+        // Remove this if you created it earlier
+        dynamicBrandingUrl: "" 
     },
     interfaceConfigOverwrite: {
+        // TURN EVERYTHING OFF
         SHOW_JITSI_WATERMARK: false,
         SHOW_WATERMARK_FOR_GUESTS: false,
-        SHOW_BRAND_WATERMARK: true, 
+        SHOW_BRAND_WATERMARK: false, 
+        BRAND_WATERMARK_LINK: "",
+        DEFAULT_LOGO_URL: "",
         
-        // This puts the logo inside the frame
-        BRAND_WATERMARK_LINK: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
-        DEFAULT_LOGO_URL: "https://raw.githubusercontent.com/paramountwgl/video-conferencing-platform/main/School%20logo%202.png",
-        
+        // Ensure the toolbar is standard and clean
         TOOLBAR_BUTTONS: [
             'microphone', 'camera', 'desktop', 'fullscreen',
             'fms', 'hangup', 'profile', 'chat', 'settings', 
@@ -175,30 +124,6 @@ const options = {
 };
 const api = new JitsiMeetExternalAPI("8x8.vc", options);
 
-// FORCE the logo to stay on top during full-screen
-api.addEventListener('videoConferenceJoined', () => {
-    const watermark = document.getElementById('premium-watermark');
-    watermark.style.display = 'flex'; // Changed from 'block' to 'flex'
-});
-
-// Fix for Fullscreen toggle
-document.addEventListener('fullscreenchange', () => {
-    const watermark = document.getElementById('premium-watermark');
-    if (document.fullscreenElement) {
-        watermark.style.top = '30px';
-    } else {
-        watermark.style.top = '100px';
-    }
-});
-
-// Also trigger this for the Jitsi internal Fullscreen button
-api.on('toolbarButtonClicked', (event) => {
-    if (event.key === 'fullscreen') {
-        const watermark = document.querySelector('.custom-watermark');
-        const wrapper = document.querySelector('#meeting-wrapper');
-        wrapper.appendChild(watermark);
-    }
-});
     </script>
 </body>
 </html>
