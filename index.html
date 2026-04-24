@@ -13,39 +13,59 @@
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
-        body { font-family: 'Poppins', sans-serif; background: var(--dark-blue); color: white; margin: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark-blue); color: white; margin: 0; overflow: hidden; }
         
+        /* Premium Background Gradient */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            z-index: -1;
+        }
+
         #meeting-wrapper {
             position: relative;
             width: 100%;
             display: flex;
             justify-content: center;
             background: #000;
-            min-height: calc(100vh - 250px);
+            height: calc(100vh - 160px); /* Adjust based on header/footer */
         }
 
-        #meeting-container {
-            width: 100%;
-            height: calc(100vh - 200px);
-            background: #000;
-            content-visibility: auto;
+        #meeting-container { width: 100%; height: 100%; }
+
+        /* Fullscreen Mode Styling */
+        body:fullscreen header, body:-webkit-full-screen header {
+            background: #020617;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        body:fullscreen #meeting-wrapper, body:-webkit-full-screen #meeting-wrapper {
+            height: calc(100vh - 80px) !important;
         }
 
         .star-active { color: var(--gold) !important; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen" id="main-body">
 
-    <header class="p-4 border-b-2 border-[#c5a059] flex justify-between items-center bg-[#020617]">
-        <div class="flex items-center gap-3">
+    <header class="p-4 border-b-2 border-[#c5a059] flex justify-between items-center bg-[#020617] z-50">
+        <div class="flex items-center gap-4">
             <img src="School logo 2.png" class="h-12 w-12 object-contain" alt="Logo">
             <div>
-                <h1 style="font-family: 'Cinzel';" class="text-xl text-[#c5a059]">PARAMOUNT</h1>
-                <p class="text-[10px] tracking-widest uppercase">Official Staff Meeting Room</p>
+                <h1 style="font-family: 'Cinzel';" class="text-xl text-[#c5a059] leading-none">PARAMOUNT</h1>
+                <p class="text-[10px] tracking-widest uppercase text-gray-400 mt-1">Official Staff Meeting Room</p>
             </div>
         </div>
-        <div class="hidden md:block">
-            <span class="text-[10px] bg-green-900/30 text-green-400 px-3 py-1 rounded-full border border-green-500/50 uppercase font-bold tracking-widest">Secure Connection</span>
+        
+        <div class="flex items-center gap-4">
+            <button id="brandedFS" class="text-[10px] font-bold border border-[#c5a059] text-[#c5a059] px-4 py-2 rounded hover:bg-[#c5a059] hover:text-black transition-all flex items-center gap-2">
+                <i class="fas fa-expand"></i> <span id="fsText">BRANDED FULLSCREEN</span>
+            </button>
+            <div class="hidden md:block">
+                <span class="text-[10px] bg-green-900/30 text-green-400 px-3 py-1 rounded-full border border-green-500/50 uppercase font-bold tracking-widest">Secure Room</span>
+            </div>
         </div>
     </header>
 
@@ -53,112 +73,105 @@
         <div id="meeting-container"></div>
     </main>
 
-    <footer style="background: rgba(2, 6, 23, 0.98); padding: 30px 15px; text-align: center; border-top: 2px solid #c5a059;">
-        <div class="footer-container" style="max-width: 1200px; margin: 0 auto;">
-            <p style="margin-bottom: 20px; font-size: 0.8rem; opacity: 0.8; color: white; line-height: 1.6;">
-                &copy; 2026, Paramount English Medium School. All Rights Reserved.<br>
-                <span style="color: #c5a059; font-weight: bold; letter-spacing: 1px;">OFFICIAL STAFF MEETING PORTAL</span>
+    <footer class="bg-[#020617] py-6 text-center border-t border-gray-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-[11px] text-gray-500 mb-4 uppercase tracking-widest font-semibold">
+                &copy; 2026 Paramount English Medium School | Laxmipur, Warangal
             </p>
-            <div class="social-icons flex justify-center gap-6">
-                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
+            <div class="flex justify-center gap-8">
+                <a href="#" class="text-gray-400 hover:text-[#c5a059] text-xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-[#c5a059] text-xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-[#c5a059] text-xl"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </footer>
 
-    <div id="feedbackModal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[3000] hidden">
-        <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl border-t-8 border-[#c5a059]">
-            <h2 style="font-family: 'Cinzel';" class="text-[#030a1a] text-2xl font-bold mb-2">How was your experience?</h2>
-            <p class="text-gray-500 text-xs mb-6 font-semibold uppercase tracking-widest">Paramount Conference Room</p>
+    <div id="feedbackModal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] hidden">
+        <div class="bg-white rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl border-b-8 border-[#c5a059]">
+            <h2 style="font-family: 'Cinzel';" class="text-[#030a1a] text-2xl font-bold mb-2 uppercase">Session Ended</h2>
+            <p class="text-gray-500 text-[10px] mb-8 font-bold uppercase tracking-widest">How was your conference experience?</p>
             
-            <div class="flex justify-center gap-3 mb-8" id="starRating">
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-300 transition-colors" data-value="1"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-300 transition-colors" data-value="2"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-300 transition-colors" data-value="3"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-300 transition-colors" data-value="4"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-300 transition-colors" data-value="5"></i>
+            <div class="flex justify-center gap-3 mb-10" id="starRating">
+                <i class="fas fa-star text-4xl cursor-pointer text-gray-200" data-value="1"></i>
+                <i class="fas fa-star text-4xl cursor-pointer text-gray-200" data-value="2"></i>
+                <i class="fas fa-star text-4xl cursor-pointer text-gray-200" data-value="3"></i>
+                <i class="fas fa-star text-4xl cursor-pointer text-gray-200" data-value="4"></i>
+                <i class="fas fa-star text-4xl cursor-pointer text-gray-200" data-value="5"></i>
             </div>
 
-            <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs border-2 border-[#c5a059] hover:bg-[#c5a059] hover:text-black transition-all w-full mb-4">
-                Submit Rating
+            <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] py-4 rounded-xl font-bold uppercase tracking-widest text-xs border-2 border-[#c5a059] hover:bg-[#c5a059] hover:text-black transition-all w-full">
+                Submit Feedback
             </button>
-
-            <div id="thankYouMessage" class="hidden text-green-600 font-bold text-lg animate-pulse">
-                Thank you for your response!
-            </div>
+            <div id="thankYou" class="hidden text-green-600 font-bold mt-4 animate-pulse">Thank you, Sir/Madam!</div>
         </div>
     </div>
 
     <script>
         const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
-        const roomName = "Staff_Meeting_Room";
+        const roomName = "Paramount_Staff_Secure_Meet";
         let api = null;
         let selectedRating = 0;
 
+        // Initialize Meeting
         window.onload = () => {
-            // Delay start slightly to prevent black screen freeze
             setTimeout(() => {
                 const options = {
                     roomName: appId + "/" + roomName,
-                    width: "100%",
-                    height: "100%",
+                    width: "100%", height: "100%",
                     parentNode: document.querySelector('#meeting-container'),
-                    configOverwrite: {
-                        prejoinPageEnabled: false,
-                        enableWelcomePage: false,
-                        disableDeepLinking: true,
-                        disableThirdPartyRequests: true
-                    },
+                    configOverwrite: { prejoinPageEnabled: false, disableThirdPartyRequests: true },
                     interfaceConfigOverwrite: {
                         SHOW_JITSI_WATERMARK: false,
-                        SHOW_WATERMARK_FOR_GUESTS: false,
                         SHOW_BRAND_WATERMARK: false,
                         TOOLBAR_BUTTONS: [
-                            'microphone', 'camera', 'desktop', 'fullscreen',
-                            'fms', 'hangup', 'profile', 'chat', 'settings', 
-                            'raisehand', 'videoquality', 'tileview', 'security'
-                        ],
+                            'microphone', 'camera', 'desktop', 'chat', 'settings', 
+                            'raisehand', 'videoquality', 'tileview', 'hangup'
+                        ], // We removed internal fullscreen button to force use of our branded one
                     }
                 };
-
                 api = new JitsiMeetExternalAPI("8x8.vc", options);
-
-                // Handle Call End
+                
                 api.addEventListener('videoConferenceLeft', () => {
+                    if(document.fullscreenElement) document.exitFullscreen();
                     document.getElementById('meeting-wrapper').style.display = 'none';
                     document.getElementById('feedbackModal').classList.remove('hidden');
                 });
             }, 800);
         };
 
-        // Star Rating Logic
+        // Branded Fullscreen Logic
+        const fsBtn = document.getElementById('brandedFS');
+        const fsText = document.getElementById('fsText');
+        const body = document.getElementById('main-body');
+
+        fsBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                if (body.requestFullscreen) body.requestFullscreen();
+                else if (body.webkitRequestFullscreen) body.webkitRequestFullscreen();
+                fsText.innerText = "EXIT FULLSCREEN";
+                fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                fsText.innerText = "BRANDED FULLSCREEN";
+                fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+            }
+        });
+
+        // Star Rating Script
         document.querySelectorAll('#starRating i').forEach(star => {
             star.addEventListener('click', function() {
                 selectedRating = this.getAttribute('data-value');
                 document.querySelectorAll('#starRating i').forEach(s => {
-                    if(s.getAttribute('data-value') <= selectedRating) {
-                        s.style.color = '#c5a059';
-                    } else {
-                        s.style.color = '#d1d5db';
-                    }
+                    s.style.color = s.getAttribute('data-value') <= selectedRating ? '#c5a059' : '#e5e7eb';
                 });
             });
         });
 
-        // Feedback Submission
         document.getElementById('submitFeedback').addEventListener('click', function() {
-            if(selectedRating === 0) {
-                alert("Please select a rating.");
-                return;
-            }
+            if(selectedRating === 0) return alert("Select a rating.");
             this.style.display = 'none';
-            document.getElementById('thankYouMessage').classList.remove('hidden');
-            
-            setTimeout(() => {
-                location.reload();
-            }, 3000);
+            document.getElementById('thankYou').classList.remove('hidden');
+            setTimeout(() => location.reload(), 2500);
         });
     </script>
 </body>
