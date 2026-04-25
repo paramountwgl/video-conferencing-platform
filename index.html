@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Paramount School | Meeting Portal</title>
     
     <script src="https://8x8.vc/external_api.js"></script>
@@ -12,67 +12,111 @@
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
-        body { font-family: 'Poppins', sans-serif; background: #fff; color: #3c4043; margin: 0; }
         
-        #landing-page { display: flex; flex-direction: column; min-height: 100vh; }
-        .hero-section { display: flex; flex-grow: 1; align-items: center; justify-content: space-around; padding: 40px; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #fff; 
+            color: #3c4043; 
+            margin: 0;
+            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Fixed Header for constant branding */
+        header {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 2000;
+            border-bottom: 1px solid #dadce0;
+        }
         
+        /* Containers */
+        #landing-page { 
+            display: flex; 
+            flex-direction: column; 
+            width: 100%;
+        }
+
+        .hero-section { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-around; 
+            padding: 60px 40px; 
+            min-height: 80vh;
+        }
+        
+        /* Meeting UI */
         #meeting-wrapper { 
             display: none; 
             width: 100%; 
-            height: 100vh; 
-            background: #000; 
-            position: fixed; 
-            top: 0; left: 0; 
-            z-index: 1000; 
+            height: 85vh; /* Takes most of the screen but stays below header */
+            min-height: 500px;
+            background: #000;
+            position: relative;
         }
 
-        .btn-google { background: #1a73e8; color: white; padding: 12px 24px; border-radius: 4px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .btn-google { background: #1a73e8; color: white; padding: 12px 24px; border-radius: 4px; font-weight: 500; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .btn-google:hover { background: #1765cc; box-shadow: 0 1px 3px rgba(60,64,67,0.3); }
+        
         .input-code { border: 1px solid #dadce0; padding: 12px; border-radius: 4px; width: 260px; outline: none; }
         .input-code:focus { border: 2px solid #1a73e8; }
 
         @media (max-width: 768px) {
-            .hero-section { flex-direction: column-reverse; padding: 20px; text-align: center; }
-            .hero-text h1 { font-size: 2.2rem; }
+            header { padding: 10px 15px; }
+            .hero-section { flex-direction: column-reverse; padding: 30px 20px; text-align: center; }
+            .hero-text h1 { font-size: 2rem !important; margin-top: 20px; }
+            .hero-text p { font-size: 1rem; margin-bottom: 30px; }
+            .hero-image img { max-width: 280px; }
+            #meeting-wrapper { height: 75vh; }
+            .input-code { width: 100%; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .btn-google { width: 100%; justify-content: center; }
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col">
+
+    <header class="flex justify-between items-center px-6 py-4 shadow-sm">
+        <div class="flex items-center gap-3">
+            <img src="School logo 2.png" class="h-8 w-8 md:h-10 md:w-10 object-contain" alt="Logo">
+            <span style="font-family: 'Cinzel';" class="text-lg md:text-xl text-[#c5a059] tracking-wider">PARAMOUNT</span>
+        </div>
+        <div class="text-gray-500 text-[10px] md:text-sm font-medium" id="live-clock"></div>
+    </header>
 
     <div id="landing-page">
-        <header class="flex justify-between items-center px-6 py-4">
-            <div class="flex items-center gap-3">
-                <img src="School logo 2.png" class="h-10 w-10 object-contain" alt="Logo">
-                <span style="font-family: 'Cinzel';" class="text-xl text-[#c5a059]">PARAMOUNT</span>
-            </div>
-            <div class="text-gray-500 text-sm" id="live-clock"></div>
-        </header>
-
         <main class="hero-section">
             <div class="hero-text max-w-xl">
-                <h1 class="text-5xl font-normal mb-6 leading-tight">Video calls and meetings for everyone</h1>
-                <p class="text-xl text-gray-600 mb-10">Safe and secure numeric meetings for Paramount School Staff and Students.</p>
+                <h1 class="text-4xl md:text-5xl font-normal mb-6 leading-tight">Video calls and meetings for everyone</h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-10">Safe and secure numeric meetings for Paramount School Staff and Students.</p>
                 
-                <div class="flex flex-wrap items-center gap-4">
-                    <button onclick="startMeeting('host')" class="btn-google hover:shadow-lg">
+                <div class="hero-btns flex flex-wrap items-center gap-4">
+                    <button onclick="startMeeting('host')" class="btn-google">
                         <i class="fas fa-video"></i> New meeting
                     </button>
 
-                    <div class="flex items-center gap-2">
-                        <div class="relative">
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <div class="relative flex-grow">
                             <i class="fas fa-keyboard absolute left-3 top-4 text-gray-400"></i>
                             <input type="number" id="room-input" class="input-code pl-10" placeholder="Enter numeric code">
                         </div>
-                        <button onclick="startMeeting('join')" class="text-blue-600 font-semibold px-4 py-2 hover:bg-blue-50 rounded">Join</button>
+                        <button onclick="startMeeting('join')" class="text-blue-600 font-semibold px-4 py-2 hover:bg-blue-50 rounded transition-colors">Join</button>
                     </div>
                 </div>
                 <hr class="my-8 border-gray-200">
             </div>
 
             <div class="hero-image">
-                <img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90939d3caedaa3015a864703dc15555d.svg" class="w-full max-w-md" alt="Meet">
+                <img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90939d3caedaa3015a864703dc15555d.svg" class="w-full max-w-md mx-auto" alt="Meet">
             </div>
         </main>
+
+        <section class="bg-gray-50 py-16 px-6 text-center border-t">
+            <h2 class="text-2xl font-semibold mb-4">Secure Learning Environment</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Our portal provides encrypted, private video conferencing tailored for educational excellence.</p>
+        </section>
     </div>
 
     <div id="meeting-wrapper">
@@ -83,7 +127,6 @@
         const APP_ID = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c";
         let jitsiApi = null;
 
-        // Update Clock
         function updateClock() {
             const now = new Date();
             document.getElementById('live-clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' • ' + now.toDateString();
@@ -96,17 +139,16 @@
             let name = "";
 
             if (type === 'host') {
-                // GENERATES PURELY NUMERIC ID (e.g., 123-456-7890)
                 const part1 = Math.floor(100 + Math.random() * 900);
                 const part2 = Math.floor(100 + Math.random() * 900);
                 const part3 = Math.floor(1000 + Math.random() * 9000);
-                finalRoomID = `${part1}${part2}${part3}`; // Numeric ID for the Jitsi Engine
+                finalRoomID = `${part1}${part2}${part3}`; 
                 
                 name = prompt("Enter Admin Name:", "Host/Admin");
-                alert("Your Numeric Meeting Code is: " + finalRoomID + "\nShare these numbers with your team.");
+                if(!name) return;
+                alert("Your Numeric Meeting Code is: " + finalRoomID + "\nShare this with your participants.");
             } else {
                 const inputVal = document.getElementById('room-input').value.trim();
-                // Clean any accidental dashes if user pasted them
                 finalRoomID = inputVal.replace(/\D/g, ''); 
                 
                 if (!finalRoomID) {
@@ -114,9 +156,10 @@
                     return;
                 }
                 name = prompt("Enter Your Name:", "Participant");
+                if(!name) return;
             }
 
-            // UI Switch
+            // UI Switch: Keep header, swap the content below
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('meeting-wrapper').style.display = 'block';
 
