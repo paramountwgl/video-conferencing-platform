@@ -3,243 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="title" content="Paramount School | Official Meeting Room">
-<meta name="description" content="Paramount English Medium School Official Conference Meeting Room. ">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://paramountwgl.github.io/school-ptm-2026/">
-<meta property="og:title" content="Paramount School | Official Meeting Room">
-<meta property="og:description" content="Paramount English Medium School Official Conference Meeting Room.">
-<meta property="og:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
-
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://paramountwgl.github.io/school-ptm-2026/">
-<meta property="twitter:title" content="Paramount School | Official Meeting Room">
-<meta property="twitter:description" content="Paramount English Medium School Official Conference Meeting Room.">
-<meta property="twitter:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
-
-    <title>Paramount Staff Portal | Private Meeting</title>
+    <title>Paramount School | Official Meeting Portal</title>
     
     <script src="https://8x8.vc/external_api.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/png" href="School logo 2.png">
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #3c4043; margin: 0; overflow-x: hidden; }
         
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: var(--dark-blue); 
-            color: white; 
-            margin: 0; 
-            overflow-y: auto; /* Force scrolling enabled */
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-            z-index: -1;
-        }
-
-        /* FIXED: Give the wrapper a solid height so Jitsi tools don't collapse */
-        #meeting-wrapper {
-            position: relative;
-            width: 100%;
-            height: 85vh; 
-            min-height: 600px;
-            background: #000;
-            flex-shrink: 0;
-        }
-
+        /* Landing Page Styles */
+        #landing-page { display: flex; flex-direction: column; min-height: 100vh; padding: 20px; }
+        .hero-section { display: flex; flex-direction: row; align-items: center; justify-content: space-around; flex-grow: 1; padding: 40px; }
+        
         @media (max-width: 768px) {
-            #meeting-wrapper { 
-                height: 75vh; 
-                min-height: 450px; 
-            }
-            .name-main { font-size: 1.1rem !important; }
+            .hero-section { flex-direction: column-reverse; text-align: center; padding: 20px; }
+            .hero-text h1 { font-size: 2rem !important; }
         }
 
-        #meeting-container { width: 100%; height: 100%; }
-        #main-body:fullscreen header {
-    background: #020617; /* Ensure header stays dark */
-}
+        .hero-text h1 { font-size: 3rem; font-weight: 400; color: #1f1f1f; margin-bottom: 20px; }
+        .hero-text p { font-size: 1.2rem; color: #5f6368; margin-bottom: 35px; max-width: 500px; }
 
-#main-body:fullscreen #meeting-wrapper {
-    height: calc(100vh - 80px); /* Adjust height to make room for header */
-}
+        /* Jitsi Container Styles */
+        #meeting-wrapper { display: none; width: 100%; height: 100vh; background: #000; position: fixed; top: 0; left: 0; z-index: 1000; }
 
-        /* Fullscreen Logic */
-        #meeting-wrapper:fullscreen { height: 100vh !important; }
-        #meeting-wrapper:-webkit-full-screen { height: 100vh !important; }
+        .btn-google { display: flex; align-items: center; gap: 10px; background: #1a73e8; color: white; padding: 12px 24px; border-radius: 4px; font-weight: 600; transition: 0.3s; }
+        .btn-google:hover { background: #1765cc; box-shadow: 0 1px 3px rgba(60,64,67,0.3); }
+
+        .input-code { border: 1px solid #dadce0; padding: 12px; border-radius: 4px; width: 250px; outline: none; }
+        .input-code:focus { border: 2px solid #1a73e8; }
     </style>
 </head>
-<body class="flex flex-col" id="main-body">
+<body>
 
-    <header class="p-3 md:p-4 border-b-2 border-[#c5a059] flex justify-between items-center bg-[#020617] z-50">
-        <div class="flex items-center gap-2 md:gap-4">
-            <img src="School logo 2.png" class="h-10 w-10 md:h-12 md:w-12 object-contain" alt="Logo">
-            <div>
-                <h1 style="font-family: 'Cinzel';" class="name-main text-lg md:text-xl text-[#c5a059] leading-none">PARAMOUNT</h1>
-                <p class="name-sub text-[8px] md:text-[10px] tracking-widest uppercase text-gray-400 mt-1">Staff Meeting Room</p>
+    <div id="landing-page">
+        <header class="flex justify-between items-center px-4 py-2">
+            <div class="flex items-center gap-3">
+                <img src="School logo 2.png" class="h-10 w-10 object-contain" alt="Logo">
+                <span style="font-family: 'Cinzel';" class="text-xl text-[#c5a059]">PARAMOUNT</span>
             </div>
-        </div>
-        
-        <div class="flex items-center gap-2">
-            <button id="brandedFS" class="text-[10px] font-bold border border-[#c5a059] text-[#c5a059] px-4 py-2 rounded hover:bg-[#c5a059] hover:text-black transition-all flex items-center gap-2">
-                <i class="fas fa-expand"></i> <span id="fsText">FULLSCREEN MODE</span>
-            </button>
-             <div class="hidden sm:block">
-                <span class="text-[9px] bg-green-900/30 text-green-400 px-2 py-1 rounded-full border border-green-500/50 uppercase font-bold tracking-widest">Secure Connection</span>
+            <div class="text-gray-500 font-medium" id="current-time"></div>
+        </header>
+
+        <main class="hero-section">
+            <div class="hero-text">
+                <h1>Video calls and meetings for everyone</h1>
+                <p>Connect, collaborate, and celebrate from anywhere with Paramount Secure Meetings.</p>
+                
+                <div class="flex flex-wrap items-center gap-4">
+                    <div class="relative inline-block text-left">
+                        <button onclick="toggleMenu()" class="btn-google">
+                            <i class="fas fa-video"></i> New meeting
+                        </button>
+                        <div id="meeting-menu" class="hidden absolute left-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                            <div class="py-1">
+                                <a href="#" onclick="startMeeting('host')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-plus mr-2"></i> Start an instant meeting</a>
+                                <a href="#" onclick="alert('Scheduling coming soon!')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-calendar-alt mr-2"></i> Schedule in Calendar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <input type="text" id="room-code-input" class="input-code" placeholder="Enter a code or link">
+                        <button onclick="startMeeting('participant')" class="text-blue-600 font-semibold px-4 py-2 hover:bg-blue-50 rounded">Join</button>
+                    </div>
+                </div>
             </div>
 
-        </div>
-    </header>
-
-    <main id="meeting-wrapper">
-        <div id="meeting-container"></div>
-    </main>
-
-    <footer class="bg-[#020617] py-10 text-center border-t border-gray-800">
-        <div class="max-w-4xl mx-auto px-4">
-            <p class="text-[9px] md:text-[11px] text-gray-500 mb-6 uppercase tracking-widest font-semibold">
-                &copy; 2026 Paramount English Medium School | All Rights Reserved | Warangal.
-            </p>
-            <div class="flex justify-center gap-8">
-                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-whatsapp"></i></a>
-                <a href="tel:+919000641355" target="_blank" class="text-white text-1xl hover:text-[#c5a059]"><i class="fas fa-phone"></i></a>
+            <div class="hero-image">
+                <img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90939d3caedaa3015a864703dc15555d.svg" class="w-[400px] md:w-[500px]" alt="Illustration">
             </div>
-        </div>
-    </footer>
+        </main>
+    </div>
 
-    <div id="feedbackModal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] hidden p-4">
-        <div class="bg-white rounded-3xl p-6 md:p-10 max-w-sm w-full text-center shadow-2xl border-b-8 border-[#c5a059]">
-            <h2 style="font-family: 'Cinzel';" class="text-[#030a1a] text-xl md:text-2xl font-bold mb-2 uppercase">Session Ended</h2>
-            <div class="flex justify-center gap-2 mb-8" id="starRating">
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="1"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="2"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="3"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="4"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="5"></i>
-            </div>
-            <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] py-3 rounded-xl font-bold w-full">Submit Feedback</button>
-            <div id="thankYou" class="hidden text-green-600 font-bold mt-4">Thank you!</div>
-        </div>
+    <div id="meeting-wrapper">
+        <div id="meeting-container" class="w-full h-full"></div>
     </div>
 
     <script>
         const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
-        const roomName = "Paramount_Staff_Secure_Meet";
         let api = null;
 
-        window.onload = () => {
+        // Update Time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' • ' + now.toDateString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function toggleMenu() {
+            document.getElementById('meeting-menu').classList.toggle('hidden');
+        }
+
+        // Start Meeting Logic
+        function startMeeting(role) {
+            let roomID = "";
+            let userName = "";
+
+            if (role === 'host') {
+                // Generate a random Google-Meet style code: abc-defg-hij
+                roomID = Math.random().toString(36).substring(2, 5) + '-' + 
+                         Math.random().toString(36).substring(2, 6) + '-' + 
+                         Math.random().toString(36).substring(2, 5);
+                userName = prompt("Enter Host Name:", "Admin/Host");
+            } else {
+                roomID = document.getElementById('room-code-input').value.trim();
+                if (!roomID) return alert("Please enter a valid Room Code!");
+                userName = prompt("Enter your Name:", "Participant");
+            }
+
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('meeting-wrapper').style.display = 'block';
+
             const options = {
-                roomName: appId + "/" + roomName,
-                width: "100%", 
-                height: "100%",
+                roomName: appId + "/" + roomID,
+                width: "100%", height: "100%",
                 parentNode: document.querySelector('#meeting-container'),
+                userInfo: { displayName: userName },
                 configOverwrite: { 
-                    prejoinPageEnabled: false, 
-                    disableDeepLinking: true 
+                    prejoinPageEnabled: true,
+                    // HOST/ADMIN PERMISSIONS:
+                    remoteVideoMenu: {
+                        disableKick: false, // Admin can remove people
+                        disableGrantModerator: false // Admin can make others admins
+                    },
+                    disableRemoteMute: false // Host can mute others
                 },
                 interfaceConfigOverwrite: {
-                    SHOW_JITSI_WATERMARK: false,
-                    SHOW_BRAND_WATERMARK: false,
-                    MOBILE_APP_PROMO: false,
                     TOOLBAR_BUTTONS: [
-                        'microphone', 'camera', 'desktop', 'chat', 'settings', 
-                        'raisehand', 'videoquality', 'tileview', 'hangup'
+                        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+                        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
                     ],
                 }
             };
-            
+
             api = new JitsiMeetExternalAPI("8x8.vc", options);
-            
-            // CRITICAL: Forces the meeting to re-calculate its height upon joining
-            api.addEventListener('videoConferenceJoined', () => {
-                const iframe = api.getIFrame();
-                if (iframe) {
-                    iframe.style.height = "100%";
-                    iframe.style.width = "100%";
-                }
-            });
+
+            // ADMIN CONTROL LOGIC
+            if (role === 'host') {
+                api.addEventListener('participantJoined', (event) => {
+                    console.log("A participant joined your room:", event.displayName);
+                });
+            }
 
             api.addEventListener('videoConferenceLeft', () => {
-                document.getElementById('meeting-wrapper').style.display = 'none';
-                document.getElementById('feedbackModal').classList.remove('hidden');
+                location.reload(); // Returns to landing page
             });
-        };
-
-        // Fullscreen Logic
-        // Fullscreen Logic
-const fsBtn = document.getElementById('brandedFS');
-const fsText = document.getElementById('fsText');
-
-fsBtn.addEventListener('click', () => {
-    // We target the root element (the whole page)
-    const docElm = document.documentElement;
-
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        // ENTER FULLSCREEN
-        if (docElm.requestFullscreen) {
-            docElm.requestFullscreen();
-        } else if (docElm.webkitRequestFullscreen) {
-            docElm.webkitRequestFullscreen(); // Support for Safari/iOS
-        } else if (docElm.msRequestFullscreen) {
-            docElm.msRequestFullscreen(); // Support for IE/Edge
         }
-        
-        fsText.innerText = "EXIT FULLSCREEN";
-        fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
-    } else {
-        // EXIT FULLSCREEN
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
-        
-        fsText.innerText = "FULLSCREEN MODE";
-        fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
-    }
-});
-
-// Sync button text if user exits using 'Esc' key
-const syncFS = () => {
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        fsText.innerText = "FULLSCREEN MODE";
-        fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
-    }
-};
-document.addEventListener('fullscreenchange', syncFS);
-document.addEventListener('webkitfullscreenchange', syncFS);
-        // Star Rating Logic
-        document.querySelectorAll('#starRating i').forEach(star => {
-            star.addEventListener('click', function() {
-                const val = this.getAttribute('data-value');
-                document.querySelectorAll('#starRating i').forEach(s => {
-                    s.style.color = s.getAttribute('data-value') <= val ? '#c5a059' : '#e5e7eb';
-                });
-            });
-        });
-
-        document.getElementById('submitFeedback').addEventListener('click', function() {
-            this.style.display = 'none';
-            document.getElementById('thankYou').classList.remove('hidden');
-            setTimeout(() => location.reload(), 2000);
-        });
     </script>
 </body>
 </html>
