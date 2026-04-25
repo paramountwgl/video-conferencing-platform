@@ -3,78 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Paramount School | Official Meeting Portal</title>
+    <title>Paramount School | Meeting Portal</title>
     
     <script src="https://8x8.vc/external_api.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="School logo 2.png">
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
-        body { font-family: 'Poppins', sans-serif; background: #fff; color: #3c4043; margin: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #3c4043; margin: 0; }
         
-        /* Landing Page Styles */
-        #landing-page { display: flex; flex-direction: column; min-height: 100vh; padding: 20px; }
-        .hero-section { display: flex; flex-direction: row; align-items: center; justify-content: space-around; flex-grow: 1; padding: 40px; }
+        #landing-page { display: flex; flex-direction: column; min-height: 100vh; }
+        .hero-section { display: flex; flex-grow: 1; align-items: center; justify-content: space-around; padding: 40px; }
         
-        @media (max-width: 768px) {
-            .hero-section { flex-direction: column-reverse; text-align: center; padding: 20px; }
-            .hero-text h1 { font-size: 2rem !important; }
+        #meeting-wrapper { 
+            display: none; 
+            width: 100%; 
+            height: 100vh; 
+            background: #000; 
+            position: fixed; 
+            top: 0; left: 0; 
+            z-index: 1000; 
         }
 
-        .hero-text h1 { font-size: 3rem; font-weight: 400; color: #1f1f1f; margin-bottom: 20px; }
-        .hero-text p { font-size: 1.2rem; color: #5f6368; margin-bottom: 35px; max-width: 500px; }
-
-        /* Jitsi Container Styles */
-        #meeting-wrapper { display: none; width: 100%; height: 100vh; background: #000; position: fixed; top: 0; left: 0; z-index: 1000; }
-
-        .btn-google { display: flex; align-items: center; gap: 10px; background: #1a73e8; color: white; padding: 12px 24px; border-radius: 4px; font-weight: 600; transition: 0.3s; }
-        .btn-google:hover { background: #1765cc; box-shadow: 0 1px 3px rgba(60,64,67,0.3); }
-
-        .input-code { border: 1px solid #dadce0; padding: 12px; border-radius: 4px; width: 250px; outline: none; }
+        .btn-google { background: #1a73e8; color: white; padding: 12px 24px; border-radius: 4px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .input-code { border: 1px solid #dadce0; padding: 12px; border-radius: 4px; width: 260px; outline: none; }
         .input-code:focus { border: 2px solid #1a73e8; }
+
+        @media (max-width: 768px) {
+            .hero-section { flex-direction: column-reverse; padding: 20px; text-align: center; }
+            .hero-text h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
 
     <div id="landing-page">
-        <header class="flex justify-between items-center px-4 py-2">
+        <header class="flex justify-between items-center px-6 py-4">
             <div class="flex items-center gap-3">
                 <img src="School logo 2.png" class="h-10 w-10 object-contain" alt="Logo">
                 <span style="font-family: 'Cinzel';" class="text-xl text-[#c5a059]">PARAMOUNT</span>
             </div>
-            <div class="text-gray-500 font-medium" id="current-time"></div>
+            <div class="text-gray-500 text-sm" id="live-clock"></div>
         </header>
 
         <main class="hero-section">
-            <div class="hero-text">
-                <h1>Video calls and meetings for everyone</h1>
-                <p>Connect, collaborate, and celebrate from anywhere with Paramount Secure Meetings.</p>
+            <div class="hero-text max-w-xl">
+                <h1 class="text-5xl font-normal mb-6 leading-tight">Video calls and meetings for everyone</h1>
+                <p class="text-xl text-gray-600 mb-10">Safe and secure numeric meetings for Paramount School Staff and Students.</p>
                 
                 <div class="flex flex-wrap items-center gap-4">
-                    <div class="relative inline-block text-left">
-                        <button onclick="toggleMenu()" class="btn-google">
-                            <i class="fas fa-video"></i> New meeting
-                        </button>
-                        <div id="meeting-menu" class="hidden absolute left-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                            <div class="py-1">
-                                <a href="#" onclick="startMeeting('host')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-plus mr-2"></i> Start an instant meeting</a>
-                                <a href="#" onclick="alert('Scheduling coming soon!')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"><i class="fas fa-calendar-alt mr-2"></i> Schedule in Calendar</a>
-                            </div>
-                        </div>
-                    </div>
+                    <button onclick="startMeeting('host')" class="btn-google hover:shadow-lg">
+                        <i class="fas fa-video"></i> New meeting
+                    </button>
 
-                    <div class="flex items-center gap-3">
-                        <input type="text" id="room-code-input" class="input-code" placeholder="Enter a code or link">
-                        <button onclick="startMeeting('participant')" class="text-blue-600 font-semibold px-4 py-2 hover:bg-blue-50 rounded">Join</button>
+                    <div class="flex items-center gap-2">
+                        <div class="relative">
+                            <i class="fas fa-keyboard absolute left-3 top-4 text-gray-400"></i>
+                            <input type="number" id="room-input" class="input-code pl-10" placeholder="Enter numeric code">
+                        </div>
+                        <button onclick="startMeeting('join')" class="text-blue-600 font-semibold px-4 py-2 hover:bg-blue-50 rounded">Join</button>
                     </div>
                 </div>
+                <hr class="my-8 border-gray-200">
             </div>
 
             <div class="hero-image">
-                <img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90939d3caedaa3015a864703dc15555d.svg" class="w-[400px] md:w-[500px]" alt="Illustration">
+                <img src="https://www.gstatic.com/meet/user_edu_get_a_link_light_90939d3caedaa3015a864703dc15555d.svg" class="w-full max-w-md" alt="Meet">
             </div>
         </main>
     </div>
@@ -84,77 +80,78 @@
     </div>
 
     <script>
-        const appId = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c"; 
-        let api = null;
+        const APP_ID = "vpaas-magic-cookie-7e7f7c3e56a447c6a53a512920daf90c";
+        let jitsiApi = null;
 
-        // Update Time
-        function updateTime() {
+        // Update Clock
+        function updateClock() {
             const now = new Date();
-            document.getElementById('current-time').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' • ' + now.toDateString();
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' • ' + now.toDateString();
         }
-        setInterval(updateTime, 1000);
-        updateTime();
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        function toggleMenu() {
-            document.getElementById('meeting-menu').classList.toggle('hidden');
-        }
+        function startMeeting(type) {
+            let finalRoomID = "";
+            let name = "";
 
-        // Start Meeting Logic
-        function startMeeting(role) {
-            let roomID = "";
-            let userName = "";
-
-            if (role === 'host') {
-                // Generate a random Google-Meet style code: abc-defg-hij
-                roomID = Math.random().toString(36).substring(2, 5) + '-' + 
-                         Math.random().toString(36).substring(2, 6) + '-' + 
-                         Math.random().toString(36).substring(2, 5);
-                userName = prompt("Enter Host Name:", "Admin/Host");
+            if (type === 'host') {
+                // GENERATES PURELY NUMERIC ID (e.g., 123-456-7890)
+                const part1 = Math.floor(100 + Math.random() * 900);
+                const part2 = Math.floor(100 + Math.random() * 900);
+                const part3 = Math.floor(1000 + Math.random() * 9000);
+                finalRoomID = `${part1}${part2}${part3}`; // Numeric ID for the Jitsi Engine
+                
+                name = prompt("Enter Admin Name:", "Host/Admin");
+                alert("Your Numeric Meeting Code is: " + finalRoomID + "\nShare these numbers with your team.");
             } else {
-                roomID = document.getElementById('room-code-input').value.trim();
-                if (!roomID) return alert("Please enter a valid Room Code!");
-                userName = prompt("Enter your Name:", "Participant");
+                const inputVal = document.getElementById('room-input').value.trim();
+                // Clean any accidental dashes if user pasted them
+                finalRoomID = inputVal.replace(/\D/g, ''); 
+                
+                if (!finalRoomID) {
+                    alert("Please enter the numeric meeting code!");
+                    return;
+                }
+                name = prompt("Enter Your Name:", "Participant");
             }
 
+            // UI Switch
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('meeting-wrapper').style.display = 'block';
 
             const options = {
-                roomName: appId + "/" + roomID,
-                width: "100%", height: "100%",
+                roomName: APP_ID + "/" + finalRoomID,
+                width: "100%",
+                height: "100%",
                 parentNode: document.querySelector('#meeting-container'),
-                userInfo: { displayName: userName },
-                configOverwrite: { 
-                    prejoinPageEnabled: true,
-                    // HOST/ADMIN PERMISSIONS:
-                    remoteVideoMenu: {
-                        disableKick: false, // Admin can remove people
-                        disableGrantModerator: false // Admin can make others admins
-                    },
-                    disableRemoteMute: false // Host can mute others
+                userInfo: { displayName: name },
+                configOverwrite: {
+                    prejoinPageEnabled: false,
+                    startWithAudioMuted: false,
+                    disableRemoteMute: false,
+                    remoteVideoMenu: { disableKick: false }
                 },
                 interfaceConfigOverwrite: {
                     TOOLBAR_BUTTONS: [
-                        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-                        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-                        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-                        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-                        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+                        'microphone', 'camera', 'desktop', 'chat', 'raisehand',
+                        'settings', 'videoquality', 'tileview', 'hangup', 'mute-everyone'
                     ],
                 }
             };
 
-            api = new JitsiMeetExternalAPI("8x8.vc", options);
+            jitsiApi = new JitsiMeetExternalAPI("8x8.vc", options);
 
-            // ADMIN CONTROL LOGIC
-            if (role === 'host') {
-                api.addEventListener('participantJoined', (event) => {
-                    console.log("A participant joined your room:", event.displayName);
-                });
-            }
+            jitsiApi.addEventListener('videoConferenceJoined', () => {
+                const iframe = jitsiApi.getIFrame();
+                if (iframe) {
+                    iframe.style.height = "100%";
+                    iframe.style.width = "100%";
+                }
+            });
 
-            api.addEventListener('videoConferenceLeft', () => {
-                location.reload(); // Returns to landing page
+            jitsiApi.addEventListener('videoConferenceLeft', () => {
+                location.reload(); 
             });
         }
     </script>
