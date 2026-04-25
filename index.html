@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="title" content="Paramount School | Official Meeting Room">
+<meta name="description" content="Paramount English Medium School Official Conference Meeting Room. ">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paramountwgl.github.io/school-ptm-2026/">
+<meta property="og:title" content="Paramount School | Official Meeting Room">
+<meta property="og:description" content="Paramount English Medium School Official Conference Meeting Room.">
+<meta property="og:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://paramountwgl.github.io/school-ptm-2026/">
+<meta property="twitter:title" content="Paramount School | Official Meeting Room">
+<meta property="twitter:description" content="Paramount English Medium School Official Conference Meeting Room.">
+<meta property="twitter:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
     <title>Paramount Staff Portal | Private Meeting</title>
     
     <script src="https://8x8.vc/external_api.js"></script>
@@ -14,19 +27,8 @@
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark-blue); color: white; margin: 0; overflow: hidden; touch-action: manipulation; }
         
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: var(--dark-blue); 
-            color: white; 
-            margin: 0; 
-            overflow-y: auto; /* Enable scrolling */
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
         body::before {
             content: "";
             position: fixed;
@@ -35,34 +37,32 @@
             z-index: -1;
         }
 
-        header { flex-shrink: 0; }
-
         #meeting-wrapper {
             position: relative;
             width: 100%;
-            /* Fix: Give the container a definite height so Jitsi doesn't collapse to black */
-            height: 75vh; 
-            min-height: 550px; 
+            display: flex;
+            justify-content: center;
             background: #000;
-            display: block;
+            /* Height adjusts for mobile vs desktop */
+            height: calc(100vh - 140px); 
         }
 
         @media (max-width: 768px) {
-            #meeting-wrapper { 
-                height: 65vh; 
-                min-height: 450px; 
-            }
+            #meeting-wrapper { height: calc(100vh - 120px); }
             .name-main { font-size: 1.1rem !important; }
+            .name-sub { font-size: 8px !important; }
         }
 
         #meeting-container { width: 100%; height: 100%; }
 
-        /* Fullscreen Overrides */
-        #meeting-wrapper:fullscreen { height: 100vh !important; width: 100vw !important; }
-        #meeting-wrapper:-webkit-full-screen { height: 100vh !important; width: 100vw !important; }
+        /* Fullscreen adjustments */
+        body:fullscreen #meeting-wrapper, 
+        body:-webkit-full-screen #meeting-wrapper {
+            height: calc(100vh - 70px) !important;
+        }
     </style>
 </head>
-<body class="flex flex-col" id="main-body">
+<body class="flex flex-col min-h-screen" id="main-body">
 
     <header class="p-3 md:p-4 border-b-2 border-[#c5a059] flex justify-between items-center bg-[#020617] z-50">
         <div class="flex items-center gap-2 md:gap-4">
@@ -77,6 +77,10 @@
             <button id="brandedFS" class="text-[10px] font-bold border border-[#c5a059] text-[#c5a059] px-4 py-2 rounded hover:bg-[#c5a059] hover:text-black transition-all flex items-center gap-2">
                 <i class="fas fa-expand"></i> <span id="fsText">FULLSCREEN MODE</span>
             </button>
+           
+            <div class="hidden sm:block">
+                <span class="text-[9px] bg-green-900/30 text-green-400 px-2 py-1 rounded-full border border-green-500/50 uppercase font-bold tracking-widest">Secure Connection</span>
+            </div>
         </div>
     </header>
 
@@ -84,16 +88,16 @@
         <div id="meeting-container"></div>
     </main>
 
-    <footer class="bg-[#020617] py-8 text-center border-t border-gray-800">
+    <footer class="bg-[#020617] py-4 md:py-6 text-center border-t border-gray-800">
         <div class="max-w-4xl mx-auto px-4">
-            <p class="text-[9px] md:text-[11px] text-gray-500 mb-4 uppercase tracking-widest font-semibold">
+            <p class="text-[9px] md:text-[11px] text-gray-500 mb-2 md:mb-4 uppercase tracking-widest font-semibold">
                 &copy; 2026 Paramount School | Warangal
             </p>
-            <div class="flex justify-center gap-8">
-                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-whatsapp"></i></a>
+            <div class="flex justify-center gap-6 md:gap-8">
+                <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </footer>
@@ -101,15 +105,20 @@
     <div id="feedbackModal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] hidden p-4">
         <div class="bg-white rounded-3xl p-6 md:p-10 max-w-sm w-full text-center shadow-2xl border-b-8 border-[#c5a059]">
             <h2 style="font-family: 'Cinzel';" class="text-[#030a1a] text-xl md:text-2xl font-bold mb-2 uppercase">Session Ended</h2>
-            <div class="flex justify-center gap-2 mb-8" id="starRating">
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="1"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="2"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="3"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="4"></i>
-                <i class="fas fa-star text-3xl cursor-pointer text-gray-200" data-value="5"></i>
+            <p class="text-gray-500 text-[9px] md:text-[10px] mb-6 md:mb-8 font-bold uppercase tracking-widest">How was your conference experience?</p>
+            
+            <div class="flex justify-center gap-2 md:gap-3 mb-8 md:mb-10" id="starRating">
+                <i class="fas fa-star text-3xl md:text-4xl cursor-pointer text-gray-200" data-value="1"></i>
+                <i class="fas fa-star text-3xl md:text-4xl cursor-pointer text-gray-200" data-value="2"></i>
+                <i class="fas fa-star text-3xl md:text-4xl cursor-pointer text-gray-200" data-value="3"></i>
+                <i class="fas fa-star text-3xl md:text-4xl cursor-pointer text-gray-200" data-value="4"></i>
+                <i class="fas fa-star text-3xl md:text-4xl cursor-pointer text-gray-200" data-value="5"></i>
             </div>
-            <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] py-3 rounded-xl font-bold w-full uppercase tracking-widest">Submit Feedback</button>
-            <div id="thankYou" class="hidden text-green-600 font-bold mt-4 animate-pulse">Thank you, Sir/Madam!</div>
+
+            <button id="submitFeedback" class="bg-[#030a1a] text-[#c5a059] py-3 md:py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] md:text-xs border-2 border-[#c5a059] hover:bg-[#c5a059] hover:text-black transition-all w-full">
+                Submit Feedback
+            </button>
+            <div id="thankYou" class="hidden text-green-600 font-bold mt-4 animate-pulse text-sm">Thank you, Sir/Madam!</div>
         </div>
     </div>
 
@@ -120,68 +129,52 @@
         let selectedRating = 0;
 
         window.onload = () => {
-            const options = {
-                roomName: appId + "/" + roomName,
-                width: "100%", 
-                height: "100%",
-                parentNode: document.querySelector('#meeting-container'),
-                configOverwrite: { 
-                    prejoinPageEnabled: false, 
-                    disableThirdPartyRequests: true,
-                    disableDeepLinking: true 
-                },
-                interfaceConfigOverwrite: {
-                    SHOW_JITSI_WATERMARK: false,
-                    SHOW_BRAND_WATERMARK: false,
-                    MOBILE_APP_PROMO: false,
-                    TOOLBAR_BUTTONS: [
-                        'microphone', 'camera', 'desktop', 'chat', 'settings', 
-                        'raisehand', 'videoquality', 'tileview', 'hangup'
-                    ],
-                }
-            };
-            
-            api = new JitsiMeetExternalAPI("8x8.vc", options);
-            
-            // Fix: Force resize when meeting starts to prevent black screen
-            api.addEventListener('videoConferenceJoined', () => {
-                const iframe = api.getIFrame();
-                if (iframe) {
-                    iframe.style.height = "100%";
-                    iframe.style.width = "100%";
-                }
-            });
-
-            api.addEventListener('videoConferenceLeft', () => {
-                if(document.fullscreenElement || document.webkitFullscreenElement) {
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                }
-                document.getElementById('meeting-wrapper').style.display = 'none';
-                document.getElementById('feedbackModal').classList.remove('hidden');
-            });
+            setTimeout(() => {
+                const options = {
+                    roomName: appId + "/" + roomName,
+                    width: "100%", height: "100%",
+                    parentNode: document.querySelector('#meeting-container'),
+                    configOverwrite: { 
+                        prejoinPageEnabled: false, 
+                        disableThirdPartyRequests: true,
+                        disableDeepLinking: true // Critical for mobile browser usage
+                    },
+                    interfaceConfigOverwrite: {
+                        SHOW_JITSI_WATERMARK: false,
+                        SHOW_BRAND_WATERMARK: false,
+                        MOBILE_APP_PROMO: false, // Prevents mobile users from being forced to download an app
+                        TOOLBAR_BUTTONS: [
+                            'microphone', 'camera', 'desktop', 'chat', 'settings', 
+                            'raisehand', 'videoquality', 'tileview', 'hangup'
+                        ],
+                    }
+                };
+                api = new JitsiMeetExternalAPI("8x8.vc", options);
+                
+                api.addEventListener('videoConferenceLeft', () => {
+                    if(document.fullscreenElement) document.exitFullscreen();
+                    document.getElementById('meeting-wrapper').style.display = 'none';
+                    document.getElementById('feedbackModal').classList.remove('hidden');
+                });
+            }, 800);
         };
 
-        // Fullscreen Toggle logic
+        // Responsive Fullscreen Logic
         const fsBtn = document.getElementById('brandedFS');
         const fsText = document.getElementById('fsText');
-        const wrapper = document.getElementById('meeting-wrapper');
+        const body = document.getElementById('main-body');
 
         fsBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                if (wrapper.requestFullscreen) {
-                    wrapper.requestFullscreen();
-                } else if (wrapper.webkitRequestFullscreen) {
-                    wrapper.webkitRequestFullscreen();
-                }
+            if (!document.fullscreenElement) {
+                if (body.requestFullscreen) body.requestFullscreen();
+                else if (body.webkitRequestFullscreen) body.webkitRequestFullscreen(); // iOS/Safari
                 fsText.innerText = "EXIT";
+                fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
-                fsText.innerText = "FULLSCREEN MODE";
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                fsText.innerText = "FULLSCREEN";
+                fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
             }
         });
 
@@ -199,8 +192,8 @@
             if(selectedRating === 0) return;
             this.style.display = 'none';
             document.getElementById('thankYou').classList.remove('hidden');
-            setTimeout(() => location.reload(), 2000);
+            setTimeout(() => location.reload(), 2500);
         });
     </script>
 </body>
-</html>
+</html>      video conference index
