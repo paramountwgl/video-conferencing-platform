@@ -52,6 +52,13 @@
         }
 
         #meeting-container { width: 100%; height: 100%; }
+        #main-body:fullscreen header {
+    background: #020617; /* Ensure header stays dark */
+}
+
+#main-body:fullscreen #meeting-wrapper {
+    height: calc(100vh - 80px); /* Adjust height to make room for header */
+}
 
         /* Fullscreen Logic */
         #meeting-wrapper:fullscreen { height: 100vh !important; }
@@ -73,6 +80,10 @@
             <button id="brandedFS" class="text-[10px] font-bold border border-[#c5a059] text-[#c5a059] px-4 py-2 rounded hover:bg-[#c5a059] hover:text-black transition-all flex items-center gap-2">
                 <i class="fas fa-expand"></i> <span id="fsText">FULLSCREEN MODE</span>
             </button>
+             <div class="hidden sm:block">
+                <span class="text-[9px] bg-green-900/30 text-green-400 px-2 py-1 rounded-full border border-green-500/50 uppercase font-bold tracking-widest">Secure Connection</span>
+            </div>
+
         </div>
     </header>
 
@@ -155,7 +166,9 @@
 
         // Fullscreen Logic
         const fsBtn = document.getElementById('brandedFS');
-        const wrapper = document.getElementById('meeting-wrapper');
+        const body = document.getElementById('main-body');
+// ...
+body.requestFullscreen();
 
         fsBtn.addEventListener('click', () => {
             if (!document.fullscreenElement && !document.webkitFullscreenElement) {
