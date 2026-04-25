@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="title" content="Paramount School | Official Meeting Room">
-<meta name="description" content="Paramount English Medium School Official Conference Meeting Room. ">
+    <meta name="description" content="Paramount English Medium School Official Conference Meeting Room. ">
 
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://paramountwgl.github.io/school-ptm-2026/">
-<meta property="og:title" content="Paramount School | Official Meeting Room">
-<meta property="og:description" content="Paramount English Medium School Official Conference Meeting Room.">
-<meta property="og:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paramountwgl.github.io/school-ptm-2026/">
+    <meta property="og:title" content="Paramount School | Official Meeting Room">
+    <meta property="og:description" content="Paramount English Medium School Official Conference Meeting Room.">
+    <meta property="og:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
 
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://paramountwgl.github.io/school-ptm-2026/">
-<meta property="twitter:title" content="Paramount School | Official Meeting Room">
-<meta property="twitter:description" content="Paramount English Medium School Official Conference Meeting Room.">
-<meta property="twitter:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://paramountwgl.github.io/school-ptm-2026/">
+    <meta property="twitter:title" content="Paramount School | Official Meeting Room">
+    <meta property="twitter:description" content="Paramount English Medium School Official Conference Meeting Room.">
+    <meta property="twitter:image" content="https://paramountwgl.github.io/school-ptm-2026/School%20logo%202.png">
     <title>Paramount Staff Portal | Private Meeting</title>
     
     <script src="https://8x8.vc/external_api.js"></script>
@@ -27,7 +27,17 @@
     
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
-        body { font-family: 'Poppins', sans-serif; background: var(--dark-blue); color: white; margin: 0; overflow: hidden; touch-action: manipulation; }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--dark-blue); 
+            color: white; 
+            margin: 0; 
+            /* FIXED: Changed overflow: hidden to allow vertical scrolling */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            touch-action: auto; 
+        }
         
         body::before {
             content: "";
@@ -43,17 +53,19 @@
             display: flex;
             justify-content: center;
             background: #000;
-            /* Height adjusts for mobile vs desktop */
-            height: calc(100vh - 140px); 
+            /* FIXED: Changed height to min-height to allow page expansion */
+            min-height: calc(100vh - 140px); 
         }
 
         @media (max-width: 768px) {
-            #meeting-wrapper { height: calc(100vh - 120px); }
+            #meeting-wrapper { 
+                min-height: calc(100vh - 120px); 
+            }
             .name-main { font-size: 1.1rem !important; }
             .name-sub { font-size: 8px !important; }
         }
 
-        #meeting-container { width: 100%; height: 100%; }
+        #meeting-container { width: 100%; height: 100%; min-height: 500px; }
 
         /* Fullscreen adjustments */
         body:fullscreen #meeting-wrapper, 
@@ -91,12 +103,13 @@
     <footer class="bg-[#020617] py-4 md:py-6 text-center border-t border-gray-800">
         <div class="max-w-4xl mx-auto px-4">
             <p class="text-[9px] md:text-[11px] text-gray-500 mb-2 md:mb-4 uppercase tracking-widest font-semibold">
-                &copy; 2026 Paramount School | Warangal
+                &copy; 2026 Paramount English Medium School | All Rights Reserved | WARANGAL. 
             </p>
             <div class="flex justify-center gap-6 md:gap-8">
                 <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-instagram"></i></a>
                 <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
@@ -137,12 +150,12 @@
                     configOverwrite: { 
                         prejoinPageEnabled: false, 
                         disableThirdPartyRequests: true,
-                        disableDeepLinking: true // Critical for mobile browser usage
+                        disableDeepLinking: true 
                     },
                     interfaceConfigOverwrite: {
                         SHOW_JITSI_WATERMARK: false,
                         SHOW_BRAND_WATERMARK: false,
-                        MOBILE_APP_PROMO: false, // Prevents mobile users from being forced to download an app
+                        MOBILE_APP_PROMO: false,
                         TOOLBAR_BUTTONS: [
                             'microphone', 'camera', 'desktop', 'chat', 'settings', 
                             'raisehand', 'videoquality', 'tileview', 'hangup'
@@ -159,7 +172,6 @@
             }, 800);
         };
 
-        // Responsive Fullscreen Logic
         const fsBtn = document.getElementById('brandedFS');
         const fsText = document.getElementById('fsText');
         const body = document.getElementById('main-body');
@@ -167,7 +179,7 @@
         fsBtn.addEventListener('click', () => {
             if (!document.fullscreenElement) {
                 if (body.requestFullscreen) body.requestFullscreen();
-                else if (body.webkitRequestFullscreen) body.webkitRequestFullscreen(); // iOS/Safari
+                else if (body.webkitRequestFullscreen) body.webkitRequestFullscreen(); 
                 fsText.innerText = "EXIT";
                 fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
             } else {
@@ -178,7 +190,6 @@
             }
         });
 
-        // Star Rating Logic
         document.querySelectorAll('#starRating i').forEach(star => {
             star.addEventListener('click', function() {
                 selectedRating = this.getAttribute('data-value');
@@ -196,4 +207,4 @@
         });
     </script>
 </body>
-</html>      
+</html>
