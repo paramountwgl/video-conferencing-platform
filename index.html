@@ -101,7 +101,7 @@
                 <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-instagram"></i></a>
                 <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-youtube"></i></a>
                 <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059]"><i class="fab fa-whatsapp"></i></a>
-                <a href="tel:+919000641355" class="text-white text-2xl hover:text-[#c5a059]"><i class="fas fa-phone"></i></a>
+                <a href="tel:+919000641355" target="_blank" class="text-white text-1xl hover:text-[#c5a059]"><i class="fas fa-phone"></i></a>
             </div>
         </div>
     </footer>
@@ -165,21 +165,50 @@
         };
 
         // Fullscreen Logic
-        const fsBtn = document.getElementById('brandedFS');
-        const body = document.getElementById('main-body');
-// ...
-body.requestFullscreen();
+        // Fullscreen Logic
+const fsBtn = document.getElementById('brandedFS');
+const fsText = document.getElementById('fsText');
 
-        fsBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                if (wrapper.requestFullscreen) wrapper.requestFullscreen();
-                else if (wrapper.webkitRequestFullscreen) wrapper.webkitRequestFullscreen();
-            } else {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-            }
-        });
+fsBtn.addEventListener('click', () => {
+    // We target the root element (the whole page)
+    const docElm = document.documentElement;
 
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        // ENTER FULLSCREEN
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.webkitRequestFullscreen) {
+            docElm.webkitRequestFullscreen(); // Support for Safari/iOS
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen(); // Support for IE/Edge
+        }
+        
+        fsText.innerText = "EXIT FULLSCREEN";
+        fsBtn.querySelector('i').classList.replace('fa-expand', 'fa-compress');
+    } else {
+        // EXIT FULLSCREEN
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        
+        fsText.innerText = "FULLSCREEN MODE";
+        fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+    }
+});
+
+// Sync button text if user exits using 'Esc' key
+const syncFS = () => {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        fsText.innerText = "FULLSCREEN MODE";
+        fsBtn.querySelector('i').classList.replace('fa-compress', 'fa-expand');
+    }
+};
+document.addEventListener('fullscreenchange', syncFS);
+document.addEventListener('webkitfullscreenchange', syncFS);
         // Star Rating Logic
         document.querySelectorAll('#starRating i').forEach(star => {
             star.addEventListener('click', function() {
