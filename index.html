@@ -28,12 +28,12 @@
     <style>
         :root { --gold: #c5a059; --dark-blue: #030a1a; }
         
+        /* FIXED: Changed overflow: hidden to overflow-y: auto to allow scrolling */
         body { 
             font-family: 'Poppins', sans-serif; 
             background: var(--dark-blue); 
             color: white; 
             margin: 0; 
-            /* FIXED: Changed overflow: hidden to allow vertical scrolling */
             overflow-y: auto; 
             overflow-x: hidden;
             touch-action: auto; 
@@ -53,14 +53,12 @@
             display: flex;
             justify-content: center;
             background: #000;
-            /* FIXED: Changed height to min-height to allow page expansion */
+            /* FIXED: Changed height to min-height so content can expand */
             min-height: calc(100vh - 140px); 
         }
 
         @media (max-width: 768px) {
-            #meeting-wrapper { 
-                min-height: calc(100vh - 120px); 
-            }
+            #meeting-wrapper { min-height: calc(100vh - 120px); }
             .name-main { font-size: 1.1rem !important; }
             .name-sub { font-size: 8px !important; }
         }
@@ -103,14 +101,14 @@
     <footer class="bg-[#020617] py-4 md:py-6 text-center border-t border-gray-800">
         <div class="max-w-4xl mx-auto px-4">
             <p class="text-[9px] md:text-[11px] text-gray-500 mb-2 md:mb-4 uppercase tracking-widest font-semibold">
-                &copy; 2026 Paramount English Medium School | All Rights Reserved | WARANGAL. 
+                &copy; 2026 Paramount School | Warangal
             </p>
             <div class="flex justify-center gap-6 md:gap-8">
                 <a href="https://www.facebook.com/paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/paramount.07" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-instagram"></i></a>
                 <a href="https://youtube.com/@paramountschoolwgl" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-youtube"></i></a>
                 <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://wa.me/919000641355" target="_blank" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:+919000641355" class="text-white text-2xl hover:text-[#c5a059] transition-colors"><i class="fas fa-phone"></i></a>
             </div>
         </div>
     </footer>
